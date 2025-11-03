@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class LichKingAttack : MonoBehaviour
@@ -10,7 +11,7 @@ public class LichKingAttack : MonoBehaviour
     int PasePettenOneDamage = 40;
     private Vector3 flipx;
     Rigidbody2D rb;
-    public Transform Sword;
+    public Transform sword;
     public int speed;
     
     void Awake()
@@ -20,7 +21,7 @@ public class LichKingAttack : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (transform.transform.position.x > Target.transform.position.x)
+       /* if (transform.transform.position.x > Target.transform.position.x)
         {
             flipx.x = Mathf.Abs(flipx.x); 
             transform.localScale = flipx;
@@ -32,7 +33,7 @@ public class LichKingAttack : MonoBehaviour
             transform.localScale = flipx;
             rb.linearVelocity = Vector2.right * 0.7f * Math.Abs(transform.transform.position.x - Target.transform.position.x);
         }
-        
+        */
         if (!isAttacking)
         {
             int pettenSycle = Random.Range(0, 3);
@@ -59,7 +60,7 @@ public class LichKingAttack : MonoBehaviour
         isAttacking = true;
         int lastRan = -1; // 처음엔 아무 패턴도 없다고 표시
         int ran = Random.Range(0, 3);
-        Quaternion startRot = Sword.localRotation;
+        Quaternion startRot = sword.localRotation;
         Quaternion targetRot = Quaternion.Euler(0, 0, 90f);
 
         for (int i = 0; i < 3; i++)
@@ -75,14 +76,14 @@ public class LichKingAttack : MonoBehaviour
             switch (ran)
             {
                 case 0:
-                    Sword.transform.GetChild(0).gameObject.SetActive(true);
-                    Sword.transform.GetChild(1).gameObject.SetActive(false);
-                    Sword.transform.GetChild(2).gameObject.SetActive(false);
+                    sword.transform.GetChild(0).gameObject.SetActive(true);
+                    sword.transform.GetChild(1).gameObject.SetActive(false);
+                    sword.transform.GetChild(2).gameObject.SetActive(false);
                     
-                    while (Quaternion.Angle(Sword.localRotation, targetRot) > 0.1f)
+                    while (Quaternion.Angle(sword.localRotation, targetRot) > 0.1f)
                     {
-                        Sword.localRotation = Quaternion.RotateTowards(
-                            Sword.localRotation,
+                        sword.localRotation = Quaternion.RotateTowards(
+                            sword.localRotation,
                             targetRot,
                             speed * Time.deltaTime
                         );
@@ -91,10 +92,10 @@ public class LichKingAttack : MonoBehaviour
 
                     yield return new WaitForSeconds(1f);
 
-                    while (Quaternion.Angle(Sword.localRotation, startRot) > 0.1f)
+                    while (Quaternion.Angle(sword.localRotation, startRot) > 0.1f)
                     {
-                        Sword.localRotation = Quaternion.RotateTowards(
-                            Sword.localRotation,
+                        sword.localRotation = Quaternion.RotateTowards(
+                            sword.localRotation,
                             startRot,
                             speed * Time.deltaTime
                         );
@@ -103,9 +104,9 @@ public class LichKingAttack : MonoBehaviour
                     break;
 
                 case 1:
-                    Sword.transform.GetChild(0).gameObject.SetActive(false);
-                    Sword.transform.GetChild(1).gameObject.SetActive(true);
-                    Sword.transform.GetChild(2).gameObject.SetActive(false);
+                    sword.transform.GetChild(0).gameObject.SetActive(false);
+                    sword.transform.GetChild(1).gameObject.SetActive(true);
+                    sword.transform.GetChild(2).gameObject.SetActive(false);
                     float rotated = 0f;
 
                     while (rotated < 360f)
@@ -119,23 +120,22 @@ public class LichKingAttack : MonoBehaviour
                     break;
 
                 case 2:
-                    Debug.Log(2);
-                    Sword.transform.GetChild(0).gameObject.SetActive(false);
-                    Sword.transform.GetChild(1).gameObject.SetActive(false);
-                    Sword.transform.GetChild(2).gameObject.SetActive(true);
+                    sword.transform.GetChild(0).gameObject.SetActive(false);
+                    sword.transform.GetChild(1).gameObject.SetActive(false);
+                    sword.transform.GetChild(2).gameObject.SetActive(true);
                     if (transform.transform.position.x > Target.transform.position.x)
                     {
-                        rb.AddForce(Vector2.left * 200f, ForceMode2D.Impulse);
+                        rb.AddForce(Vector2.left * 500);
                     }
                     else
                     {
-                        rb.AddForce(Vector2.right * 200f, ForceMode2D.Impulse);
+                        rb.AddForce(Vector2.right * 500);
                     }
 
-                    while (Quaternion.Angle(Sword.localRotation, targetRot) > 0.1f)
+                    while (Quaternion.Angle(sword.localRotation, targetRot) > 0.1f)
                     {
-                        Sword.localRotation = Quaternion.RotateTowards(
-                            Sword.localRotation,
+                        sword.localRotation = Quaternion.RotateTowards(
+                            sword.localRotation,
                             targetRot,
                             speed * Time.deltaTime
                         );
@@ -144,10 +144,10 @@ public class LichKingAttack : MonoBehaviour
 
                     yield return new WaitForSeconds(1f);
 
-                    while (Quaternion.Angle(Sword.localRotation, startRot) > 0.1f)
+                    while (Quaternion.Angle(sword.localRotation, startRot) > 0.1f)
                     {
-                        Sword.localRotation = Quaternion.RotateTowards(
-                            Sword.localRotation,
+                        sword.localRotation = Quaternion.RotateTowards(
+                            sword.localRotation,
                             startRot,
                             speed * Time.deltaTime
                         );
@@ -159,7 +159,6 @@ public class LichKingAttack : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        isAttacking = false;
     }
 
 }
