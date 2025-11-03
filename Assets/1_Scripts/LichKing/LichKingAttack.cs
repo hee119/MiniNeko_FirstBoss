@@ -13,6 +13,7 @@ public class LichKingAttack : MonoBehaviour
     Rigidbody2D rb;
     public Transform sword;
     public int speed;
+    bool page2 = false;
     
     void Awake()
     {
@@ -35,7 +36,7 @@ public class LichKingAttack : MonoBehaviour
         }
         if (!isAttacking)
         {
-            int pettenSycle = Random.Range(0, 3);
+            int pettenSycle = Random.Range(0, 4);
             switch (pettenSycle)
             {
                 case 0:
@@ -44,12 +45,20 @@ public class LichKingAttack : MonoBehaviour
                 case 1:
 
                     break;
-                case 2:
+                
+            }
 
-                    break;
-                case 3:
+            if (page2)
+            {
+                switch (pettenSycle)
+                {
+                    case 2:
 
-                    break;
+                        break;
+                    case 3:
+
+                        break;
+                }
             }
         }
     }
@@ -61,6 +70,12 @@ public class LichKingAttack : MonoBehaviour
         int ran = Random.Range(0, 3);
         Quaternion startRot = sword.localRotation;
         Quaternion targetRot = Quaternion.Euler(0, 0, 90f);
+        if (page2)
+        {
+            transform.GetChild(0).GetComponent<AttackEffectScript>().Damage += 30;
+            transform.GetChild(1).GetComponent<AttackEffectScript>().Damage += 30;
+            transform.GetChild(2).GetComponent<AttackEffectScript>().Damage += 30;
+        }
 
         for (int i = 0; i < 3; i++)
         {
@@ -116,6 +131,9 @@ public class LichKingAttack : MonoBehaviour
                         transform.Rotate(0f, delta, 0f); // Y축 기준 회전
                         yield return null;
                     }
+                    sword.transform.GetChild(0).gameObject.SetActive(true);
+                    sword.transform.GetChild(1).gameObject.SetActive(false);
+                    sword.transform.GetChild(2).gameObject.SetActive(false);
                     break;
 
                 case 2:
@@ -157,7 +175,7 @@ public class LichKingAttack : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
         }
-
+        isAttacking = false;
     }
 
 }
