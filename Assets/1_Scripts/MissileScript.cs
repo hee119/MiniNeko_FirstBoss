@@ -9,6 +9,7 @@ public class MissileScript : MonoBehaviour
     public GameObject BlastEffect;
     void OnTriggerEnter2D(Collider2D collision)
     {   
+        Debug.Log("Missile: " + collision.name);
         if (collision.CompareTag("Structer")){
             GameObject newM = Instantiate(BlastEffect);
             newM.transform.position = transform.position;
