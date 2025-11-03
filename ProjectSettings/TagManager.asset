@@ -8,6 +8,7 @@ TagManager:
   - Lazer
   - EnenyAttack
   - Slime
+  - Structer
   layers:
   - Default
   - TransparentFX

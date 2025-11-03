@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
 
         gameObject.GetComponent<Transform>().Translate(lF * -nuckback * Time.deltaTime);
         nuckback *= 0.995f;
-        if (playerHP == 0)
+        if (playerHP <= 0)
             DiedUI.SetActive(true);
     }
 }
