@@ -10,8 +10,8 @@ public class FallenAngelAttack : MonoBehaviour
     public GameObject chain;
     public GameObject ChainSkillRange;
 
-    //public GameObject sword;
-    //public GameObject swordGate;
+    public GameObject sword;
+    public GameObject swordGate;
 
     private void Awake()
     {
@@ -25,6 +25,10 @@ public class FallenAngelAttack : MonoBehaviour
         {
             ChainAttack();
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            StartCoroutine(SwordAttack());
+        }
     }
 
     void ChainAttack()
@@ -36,17 +40,12 @@ public class FallenAngelAttack : MonoBehaviour
         chainRight.GetComponent<ChainAttack>().isFilp = -1;
     }
 
-    //void SwordAttack()
-    //{
-    //    var firstGate = Instantiate(swordGate, player.transform.position + new Vector3(9, -1, 0), Quaternion.identity);
-    //    var secondGate = Instantiate(swordGate, player.transform.position + new Vector3(6, 9, 0), Quaternion.identity);
-    //    secondGate.transform.Rotate(0, 0, 45);
-    //    var thirdGate = Instantiate(swordGate, player.transform.position + new Vector3(0, 12, 0), Quaternion.identity);
-    //    thirdGate.transform.Rotate(0, 0, 90);
-    //    var fourthGate = Instantiate(swordGate, player.transform.position + new Vector3(-6, 9, 0), Quaternion.identity);
-    //    fourthGate.transform.Rotate(0, 0, -45);
-    //    fourthGate.GetComponent<SpriteRenderer>().flipX = true;
-    //    var fifthGate = Instantiate(swordGate, player.transform.position + new Vector3(-9, -1, 0), Quaternion.identity);
-    //    fifthGate.GetComponent<SpriteRenderer>().flipX = true;
-    //}
+    IEnumerator SwordAttack()
+    {
+        var firstGate = Instantiate(swordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y, 0), Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
+        var secondGate = Instantiate(swordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 3, 0), Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
+        var thirdGate = Instantiate(swordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 6, 0), Quaternion.identity);
+    }
 }
