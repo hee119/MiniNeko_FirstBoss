@@ -8,10 +8,6 @@ public class AttackEffectScript : MonoBehaviour
     // Start is called before the first frame update
     public int Damage;
     public string Type;
-    void Start()
-    {
-
-    }
     void OnTriggerStay2D(Collider2D collision)
     {
         if(Type == "Stay"){
