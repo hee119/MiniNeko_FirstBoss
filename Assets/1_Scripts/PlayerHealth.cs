@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
@@ -12,17 +11,18 @@ public class PlayerHealth : MonoBehaviour
 {  
     public int maxHp;
     private float _curHp;
-    public Image HpBar;
-    public TextMeshProUGUI HealthText;
-    public GameObject DiedUI;
+    float curPer = 0;
+    float targetPer = 1;
+    public Image hpBar;
+    public TextMeshProUGUI healthText;
+    public GameObject diedUI;
     float nuckback = 0f;
     Vector2 lF;
     float mvs;
     void Start()
     {
-        _curHp = maxHp;
+        CurHp = maxHp;
         mvs = gameObject.GetComponent<PlayerMove>().moveSpeed;
-        HpBar.fillAmount = 0.5f;
     }
     public float CurHp
     {
@@ -33,13 +33,14 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log(target);
             if (target >= maxHp)
                 _curHp = maxHp;
-            else if (target <= 0)    
+            else if (target <= 0)
             {
                 _curHp = 0;
-                DiedUI.SetActive(true);
+                diedUI.SetActive(true);
             }
-
-            DOTween.To(() => _curHp, x => _curHp = x, target, 0.5f).SetEase(Ease.OutQuad);
+            _curHp = value;
+            targetPer = _curHp / maxHp;
+            DOTween.To(() => curPer, x => curPer = x, targetPer, 0.5f).SetEase(Ease.OutQuad);
         }   
     }
     public void Damage(int num){
@@ -47,8 +48,8 @@ public class PlayerHealth : MonoBehaviour
     }
     void Update()
     {
-        HpBar.fillAmount = CurHp / maxHp;
-        HealthText.text = $"{Math.Round(CurHp)}/{maxHp}";
+        hpBar.fillAmount = curPer;
+        healthText.text = $"{Math.Round(CurHp)}/{maxHp}";
         if (transform.position.y < -50)
         {
             CurHp -= 10;
