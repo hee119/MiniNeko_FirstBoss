@@ -33,6 +33,7 @@ public class LightSwordAttack : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         sr.sortingOrder = 5;
         yield return new WaitForSeconds(0.2f);
-        rb.AddForce(Vector2.left*7777);
+        rb.AddForce(Vector2.left*4444);
     }
+    
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 987949445349513245}
   - component: {fileID: 677116301741925702}
   - component: {fileID: 4650648924174268558}
+  - component: {fileID: 4389725115744462674}
   m_Layer: 0
   m_Name: LightSword
   m_TagString: Untagged
@@ -106,6 +107,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4389725115744462674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2205257296409096499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59e385d519c05049945f0b5d36aa5be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordDamage: 15
 --- !u!1 &9139215139514168968
 GameObject:
   m_ObjectHideFlags: 0

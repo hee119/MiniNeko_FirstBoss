@@ -35,5 +35,7 @@ public class SwordGate : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         var swordAttack = Instantiate(sword, this.transform.position + new Vector3(-2,0,0), Quaternion.identity);
         swordAttack.transform.SetParent(this.transform);
+        yield return new WaitForSeconds(3f);
+        Destroy(this.gameObject);
     }
 }

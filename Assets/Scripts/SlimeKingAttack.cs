@@ -45,7 +45,6 @@ public class SlimeKingAttack : MonoBehaviour
             Wave1.transform.Translate(Vector2.down * 2f);
             Destroy(Wave1, 0.8f);
             gameObject.GetComponent<Rigidbody2D>().AddForce(atksee);
-
         }
         //2 phase
         if (gameObject.GetComponent<EnemyHealthScript>().Health < gameObject.GetComponent<EnemyHealthScript>().StartHealth / 2)
