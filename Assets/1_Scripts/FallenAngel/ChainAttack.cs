@@ -21,7 +21,6 @@ public class ChainAttack : MonoBehaviour
                 targetPos,                        // target
                 0.5f                              // duration
         );
-        Invoke("Destroy", 1f);
     }
     
 }

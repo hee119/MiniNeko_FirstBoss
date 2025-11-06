@@ -12,22 +12,30 @@ public class ChainDestroy : MonoBehaviour
     }
     private void Start()
     {
-        Invoke("Destroy", 0.5f);
+        StartCoroutine(Destroy());
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit");
         if (collision.CompareTag("Player"))
         {
             isHit = true;
-            Debug.Log("Hit");
+            collision.gameObject.GetComponent<PlayerMove>().isStop = true;
         }
     }
-    void Destroy()
+    private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerMove>().isStop = false;
+        }
+    }
+    IEnumerator Destroy()
+    {
+        yield return new WaitForSeconds(0.5f);
         if (isHit)
         {
             Destroy(Chain, 1.5f);
+            yield return new WaitForSeconds(1.5f);
         }
         else
         {

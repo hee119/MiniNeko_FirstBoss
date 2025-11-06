@@ -23,6 +23,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject atk;
     public Animator Anims;
     double atkTime;
+
+    public bool isStop = false;
     void Start()
     {
         colider2d = GetComponent<Collider2D>();
@@ -33,27 +35,29 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         Vector2 move = new Vector2();
-        if (Input.GetKey(KeyCode.A)){
-            move += Vector2.left * 1f;
-            lastFace = Vector2.left;
-        }
-        if (Input.GetKey(KeyCode.D))
+        if (!isStop)
         {
-            move += Vector2.right * 1f;
-            lastFace = Vector2.right;
-        }
-        if (Input.GetKeyDown(KeyCode.Q) && !isDashing)
-        {
-            isDashing = true;
-            Dashing = lastFace * DashForce;
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
-        {
-            isJumping = true;
-            rb.AddForce(Vector2.up * JumpPower * 100);
+            if (Input.GetKey(KeyCode.A))
+            {
+                move += Vector2.left * 1f;
+                lastFace = Vector2.left;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                move += Vector2.right * 1f;
+                lastFace = Vector2.right;
+            }
+            if (Input.GetKeyDown(KeyCode.Q) && !isDashing)
+            {
+                isDashing = true;
+                Dashing = lastFace * DashForce;
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+            {
+                isJumping = true;
+                rb.AddForce(Vector2.up * JumpPower * 100);
+            }
         }
         if (Input.GetMouseButton(0) && Time.time - atkTime > 0.5)
         {
