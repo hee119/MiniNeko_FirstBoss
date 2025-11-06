@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 501062275}
   - component: {fileID: 501062274}
   m_Layer: 5
-  m_Name: HpBar
+  m_Name: HpBarBackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1116,7 +1116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
-  hpBar: {fileID: 501062274}
+  hpBar: {fileID: 443593987}
   healthText: {fileID: 1805956562}
   diedUI: {fileID: 1224410305}
 --- !u!114 &1368329410
