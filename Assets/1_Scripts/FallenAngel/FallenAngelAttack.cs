@@ -36,8 +36,8 @@ public class FallenAngelAttack : MonoBehaviour
         var chainLeft = Instantiate(chain, (player.transform.position - new Vector3(24, 24, 0)), Quaternion.identity);
         var chainRight = Instantiate(chain, (player.transform.position + new Vector3(24, -24, 0)), Quaternion.identity);
         chainRight.GetComponent<Transform>().Rotate(0, 180, 0);
-        chainLeft.GetComponent<ChainAttack>().isFilp = 1;
-        chainRight.GetComponent<ChainAttack>().isFilp = -1;
+        chainLeft.GetComponent<ChainAttack>().isFlip = 1;
+        chainRight.GetComponent<ChainAttack>().isFlip = -1;
     }
 
     IEnumerator SwordAttack()
