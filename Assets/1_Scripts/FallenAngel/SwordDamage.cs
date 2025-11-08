@@ -9,7 +9,6 @@ public class SwordDamage : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("!@#@$@#^#^@#^!#^!#$");
             collision.gameObject.GetComponent<PlayerHealth>().Damage(swordDamage);
         }
     }
