@@ -2022,6 +2022,8 @@ MonoBehaviour:
   ChainSkillRange: {fileID: 1319619788460228979, guid: 45b3e0a3a2255644598dcab8293d2cbc, type: 3}
   sword: {fileID: 2205257296409096499, guid: 65c0199cd5b671c4db07a5884a14eb9d, type: 3}
   swordGate: {fileID: 981359546583017129, guid: a42db839447a7a845bd9912420b4fc36, type: 3}
+  light: {fileID: 4062427478750402446, guid: a18c6f2cee487ec4fa3a000f25b99dc6, type: 3}
+  lightSkillRange: {fileID: 9143175653084453902, guid: d5d036736a0cf664383e3e65cece061a, type: 3}
 --- !u!1 &2145287670
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ public class FallenAngelAttack : MonoBehaviour
     public GameObject sword;
     public GameObject swordGate;
 
+    public GameObject light;
+    public GameObject lightSkillRange;
+
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -28,6 +31,10 @@ public class FallenAngelAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             StartCoroutine(SwordAttack());
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            StartCoroutine(LightAttack());
         }
     }
 
@@ -47,5 +54,15 @@ public class FallenAngelAttack : MonoBehaviour
         var secondGate = Instantiate(swordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 3, 0), Quaternion.identity);
         yield return new WaitForSeconds(0.5f);
         var thirdGate = Instantiate(swordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 6, 0), Quaternion.identity);
+    }
+    IEnumerator LightAttack()
+    {
+        Vector3 coo = new Vector3(player.transform.position.x, 10, 0);
+        var lightAttackRange = Instantiate(this.lightSkillRange,coo, Quaternion.identity);
+        yield return new WaitForSeconds(2f);
+        Destroy(lightAttackRange);
+        var lightAttack = Instantiate(this.light, coo, Quaternion.identity);
+        yield return new WaitForSeconds(1f);
+        Destroy(lightAttack);
     }
 }
