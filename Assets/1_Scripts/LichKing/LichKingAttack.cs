@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -8,7 +10,6 @@ using Random = UnityEngine.Random;
 public class LichKingAttack : MonoBehaviour
 {
     public GameObject Target;
-    bool isAttacking;
     int PasePettenOneDamage = 40;
     private Vector3 flipx;
     Rigidbody2D rb;
@@ -16,15 +17,23 @@ public class LichKingAttack : MonoBehaviour
     public Transform crack;
 
     public int speed;
-    bool page2 = false;
-    bool isCrecked = false;
+    bool page2 = true;
+    bool isCrecked;
     public Sprite[] Attack;
+    public GameObject[] chain;
     SpriteRenderer sr;
+    bool isDelay;
+    
+    Animator anim;
+
+    private IEnumerator cor = null; 
+
     void Awake()
     {
         flipx = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
         sr = transform.GetChild(0).GetComponentInChildren<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     private void Start()
@@ -48,31 +57,35 @@ public class LichKingAttack : MonoBehaviour
             transform.localScale = flipx;
             rb.linearVelocity = Vector2.right * 0.7f * Math.Abs(transform.transform.position.x - Target.transform.position.x);
         }
-    }
+            }
 
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(0, 2);
+        int pettenSycle = Random.Range(2, 3);
         while (true)
         {
-            if (!isAttacking)
+            if (cor == null)
             {
-                isAttacking = true;
 
+                
                 while (pettenSycle == lastPettenSycle)
                 {
-                    pettenSycle = Random.Range(0, 2);
+                    pettenSycle = Random.Range(0, 4);
                 }
+
+                
+                
                 lastPettenSycle = pettenSycle; // 다음 회차를 위해 저장
-                yield return null;
                 switch (pettenSycle)
                 {
                     case 0:
-                        yield return Coroutine_SwingAttack();
+                        cor = Coroutine_SwingAttack();
+                        yield return Coroutine_SwingAttack();;
                         break;
                     case 1:
-                        yield return Coroutine_Creck();
+                        cor = Coroutine_Creck();
+                        yield return Coroutine_Creck();;
                         break;
 
                 }
@@ -82,29 +95,59 @@ public class LichKingAttack : MonoBehaviour
                     switch (pettenSycle)
                     {
                         case 2:
-
+                            cor = Chain();
+                            yield return Chain();;
                             break;
                         case 3:
 
                             break;
                     }
                 }
-                isAttacking = false;
             }
+        }
+    }
+
+    IEnumerator SwordMoveUp()
+    {
+        float t = 0f;
+        var swordMoveUp = new Vector3();
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            swordMoveUp = Vector3.Lerp(sword.transform.GetChild(3).gameObject.transform.position, new Vector3(sword.transform.GetChild(3).gameObject.transform.position.x,1.3f,0) , t);
+            sword.transform.GetChild(3).gameObject.transform.position = swordMoveUp;
+            yield return null;
+        }
+    }
+    IEnumerator SwordMoveDown(Action onDown = null)
+    {
+        var swordMoveDown = new Vector3();
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            swordMoveDown = Vector3.Lerp(sword.transform.GetChild(3).gameObject.transform.position, new Vector3(sword.transform.GetChild(3).gameObject.transform.position.x,0,0) , t);
+            sword.transform.GetChild(3).gameObject.transform.position = swordMoveDown;
+            if(sword.transform.GetChild(3).gameObject.transform.position.y <= 0.1f)
+                onDown?.Invoke();
+
+            yield return null;
         }
     }
 
     IEnumerator Coroutine_SwingAttack()
     {
+        isDelay = true;
         int lastRan = -1; // 처음엔 아무 패턴도 없다고 표시
         int ran = Random.Range(0, 3);
+        float ranDelay = Random.Range(0, 0.2f);
         Quaternion startRot = sword.localRotation;
         Quaternion targetRot = Quaternion.Euler(0, 0, 90f);
         if (page2)
         {
-            transform.GetChild(0).GetComponent<AttackEffectScript>().Damage += 30;
-            transform.GetChild(1).GetComponent<AttackEffectScript>().Damage += 30;
-            transform.GetChild(2).GetComponent<AttackEffectScript>().Damage += 30;
+            sword.transform.GetChild(0).GetComponent<AttackEffectScript>().Damage += 30;
+            sword.transform.GetChild(1).GetComponent<AttackEffectScript>().Damage += 30;
+            sword.transform.GetChild(2).GetComponent<AttackEffectScript>().Damage += 30;
         }
         for (int i = 0; i < 3; i++)
         {
@@ -119,10 +162,20 @@ public class LichKingAttack : MonoBehaviour
             switch (ran)
             {
                 case 0:
+                    ranDelay = Random.Range(0, 0.2f);
+                    
                     sword.transform.GetChild(0).gameObject.SetActive(true);
                     sword.transform.GetChild(1).gameObject.SetActive(false);
                     sword.transform.GetChild(2).gameObject.SetActive(false);
                     
+                    if (transform.transform.position.x > Target.transform.position.x)
+                    {
+                        anim.SetTrigger("Attack1Left");
+                    }
+                    else
+                    {
+                        anim.SetTrigger("Attack1Right");
+                    }                    
                     while (Quaternion.Angle(sword.localRotation, targetRot) > 0.1f)
                     {
                         sword.localRotation = Quaternion.RotateTowards(
@@ -131,6 +184,13 @@ public class LichKingAttack : MonoBehaviour
                             speed * Time.deltaTime
                         );
                         yield return null;
+                        if (isDelay && Quaternion.Angle(sword.localRotation, Quaternion.identity) > 30f)
+                        { 
+                            anim.speed = 0;
+                            yield return new WaitForSeconds(ranDelay);
+                            anim.speed = 1;
+                            isDelay = false;
+                        }
                     }
 
                     yield return new WaitForSeconds(1f);
@@ -142,33 +202,40 @@ public class LichKingAttack : MonoBehaviour
                             startRot,
                             speed * Time.deltaTime
                         );
+                        
                         yield return null;
                     }
                     break;
 
                 case 1:
+                    
                     sword.transform.GetChild(0).gameObject.SetActive(false);
                     sword.transform.GetChild(1).gameObject.SetActive(true);
                     sword.transform.GetChild(2).gameObject.SetActive(false);
-                    float rotated = 0f;
-
-                    while (rotated < 360f)
-                    {
-                        float delta = speed * Time.deltaTime;
-                        rotated += delta;
-
-                        transform.Rotate(0f, delta, 0f); // Y축 기준 회전
-                        yield return null;
-                    }
-                    sword.transform.GetChild(0).gameObject.SetActive(true);
-                    sword.transform.GetChild(1).gameObject.SetActive(false);
-                    sword.transform.GetChild(2).gameObject.SetActive(false);
+                    sword.transform.GetChild(3).gameObject.SetActive(false);
+                    
+                    anim.SetTrigger("Attack2");
+                    
                     break;
 
                 case 2:
+                    
+                    ranDelay = Random.Range(0, 0.2f);
+                    
+                    isDelay = true;
+                    
                     sword.transform.GetChild(0).gameObject.SetActive(false);
                     sword.transform.GetChild(1).gameObject.SetActive(false);
                     sword.transform.GetChild(2).gameObject.SetActive(true);
+                    
+                    if (transform.transform.position.x > Target.transform.position.x)
+                    {
+                        anim.SetTrigger("Attack1Left");
+                    }
+                    else
+                    {
+                        anim.SetTrigger("Attack1Right");
+                    }           
                     if (transform.transform.position.x > Target.transform.position.x)
                     {
                         rb.AddForce(Vector2.left * 500);
@@ -186,6 +253,13 @@ public class LichKingAttack : MonoBehaviour
                             speed * Time.deltaTime
                         );
                         yield return null;
+                        if (isDelay && Quaternion.Angle(sword.localRotation, Quaternion.identity) > 30f)
+                        { 
+                            anim.speed = 0;
+                            yield return new WaitForSeconds(ranDelay);
+                            anim.speed = 1;
+                            isDelay = false;
+                        }
                     }
 
                     yield return new WaitForSeconds(1f);
@@ -204,74 +278,163 @@ public class LichKingAttack : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
+        cor = null;
     }
 
-    IEnumerator Coroutine_Creck()
+   IEnumerator Coroutine_Creck()
+{
+    isCrecked = true;
+    rb.linearVelocity = Vector2.zero;
+    int ran = Random.Range(0, 3);
+    sr.sprite = Attack[1];
+    crack.gameObject.SetActive(true);
+
+    if (Target.transform.position.x - transform.position.x < 4)
     {
-        isCrecked = true;
-        rb.linearVelocity = Vector2.zero;
-        int ran = Random.Range(0, 3);
-        sr.sprite = Attack[1];
-        crack.gameObject.SetActive(true);
-        if (Target.transform.position.x - transform.position.x < 4)
-        {
-            switch (ran)
-            {
-                case 0:
-                    sword.transform.GetChild(0).gameObject.SetActive(false);
-                    sword.transform.GetChild(1).gameObject.SetActive(false);
-                    sword.transform.GetChild(2).gameObject.SetActive(false);
-                    sword.transform.GetChild(3).gameObject.SetActive(true);
-                    crack.transform.GetChild(0).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(0.8f);
-                    crack.transform.GetChild(0).gameObject.SetActive(false);
-                    crack.transform.GetChild(1).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(1f);
-                    break;
-                case 1:
-                    sword.transform.GetChild(0).gameObject.SetActive(false);
-                    sword.transform.GetChild(1).gameObject.SetActive(false);
-                    sword.transform.GetChild(2).gameObject.SetActive(false);
-                    sword.transform.GetChild(3).gameObject.SetActive(true);
-                    crack.transform.GetChild(0).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(0.8f);
-                    crack.transform.GetChild(0).gameObject.SetActive(false);
-                    crack.transform.GetChild(1).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(0.4f);
-                    crack.transform.GetChild(0).gameObject.SetActive(false);
-                    crack.transform.GetChild(1).gameObject.SetActive(false);
-                    crack.transform.GetChild(2).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(1f);
-                    break;
-                case 2:
-                    sword.transform.GetChild(0).gameObject.SetActive(false);
-                    sword.transform.GetChild(1).gameObject.SetActive(false);
-                    sword.transform.GetChild(2).gameObject.SetActive(false);
-                    sword.transform.GetChild(3).gameObject.SetActive(true);
-                    crack.transform.GetChild(0).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(0.8f);
-                    crack.transform.GetChild(0).gameObject.SetActive(false);
-                    crack.transform.GetChild(1).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(0.4f);
-                    crack.transform.GetChild(0).gameObject.SetActive(false);
-                    crack.transform.GetChild(1).gameObject.SetActive(false);
-                    crack.transform.GetChild(2).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(0.4f);
-                    crack.transform.GetChild(0).gameObject.SetActive(false);
-                    crack.transform.GetChild(1).gameObject.SetActive(false);
-                    crack.transform.GetChild(2).gameObject.SetActive(false);
-                    crack.transform.GetChild(3).gameObject.SetActive(true);
-                    yield return new WaitForSeconds(1f);
-                    break;
-            }
-        }
+        sword.transform.GetChild(0).gameObject.SetActive(false);
+        sword.transform.GetChild(1).gameObject.SetActive(false);
+        sword.transform.GetChild(2).gameObject.SetActive(false);
+        sword.transform.GetChild(3).gameObject.SetActive(true);
 
-        sr.sprite = Attack[0];
-        isCrecked = false;
-        crack.transform.GetChild(0).gameObject.SetActive(false);
+        switch (ran)
+{
+    case 0:
+        yield return SwordMoveUp();
+
+        yield return SwordMoveDown(() => crack.transform.GetChild(0).gameObject.SetActive(true));
+
+        yield return SwordMoveUp();
+        crack.transform.GetChild(1).gameObject.SetActive(true);  // 다음 crack 켜기
+        crack.transform.GetChild(0).gameObject.SetActive(false); // 이전 crack 끄기
+
+        yield return SwordMoveDown();
+        crack.transform.GetChild(1).gameObject.SetActive(true); // 내려올 때 유지
+
+        yield return SwordMoveUp();
         crack.transform.GetChild(1).gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+        break;
+
+    case 1:
+        yield return SwordMoveUp();
+
+        yield return SwordMoveDown(() => crack.transform.GetChild(0).gameObject.SetActive(true));
+
+        yield return SwordMoveUp();
+        crack.transform.GetChild(1).gameObject.SetActive(true);
+        crack.transform.GetChild(0).gameObject.SetActive(false);
+
+        yield return SwordMoveDown();
+        crack.transform.GetChild(1).gameObject.SetActive(true);
+
+        yield return SwordMoveUp();
+        crack.transform.GetChild(2).gameObject.SetActive(true);
+        crack.transform.GetChild(1).gameObject.SetActive(false);
+
+        yield return SwordMoveDown();
+        crack.transform.GetChild(2).gameObject.SetActive(true);
+
+        yield return SwordMoveUp();
         crack.transform.GetChild(2).gameObject.SetActive(false);
-        crack.transform.GetChild(3).gameObject.SetActive(false);   
-        sword.transform.GetChild(3).gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+        break;
+
+    case 2:
+        yield return SwordMoveUp();
+
+        yield return SwordMoveDown(() => crack.transform.GetChild(0).gameObject.SetActive(true));
+
+        yield return SwordMoveUp();
+        crack.transform.GetChild(1).gameObject.SetActive(true);
+        crack.transform.GetChild(0).gameObject.SetActive(false);
+
+        yield return SwordMoveDown();
+        crack.transform.GetChild(1).gameObject.SetActive(true);
+
+        yield return SwordMoveUp();
+        crack.transform.GetChild(2).gameObject.SetActive(true);
+        crack.transform.GetChild(1).gameObject.SetActive(false);
+
+        yield return SwordMoveDown();
+        crack.transform.GetChild(2).gameObject.SetActive(true);
+
+        yield return SwordMoveUp();
+        crack.transform.GetChild(3).gameObject.SetActive(true);
+        crack.transform.GetChild(2).gameObject.SetActive(false);
+
+        yield return SwordMoveDown();
+        crack.transform.GetChild(3).gameObject.SetActive(true);
+
+        yield return SwordMoveUp();
+        crack.transform.GetChild(3).gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+        break;
+}
+
     }
+
+    sr.sprite = Attack[0];
+    isCrecked = false;
+
+    // 모든 crack 초기화
+    for (int i = 0; i < 4; i++){
+        crack.transform.GetChild(i).gameObject.SetActive(false);
+    }
+    sword.transform.GetChild(3).gameObject.SetActive(false);
+    sr.sprite = Attack[0];
+    isCrecked = false;
+    crack.transform.GetChild(0).gameObject.SetActive(false);
+    crack.transform.GetChild(1).gameObject.SetActive(false);
+    crack.transform.GetChild(2).gameObject.SetActive(false);
+    crack.transform.GetChild(3).gameObject.SetActive(false);   
+    sword.transform.GetChild(3).gameObject.SetActive(false);
+    cor = null;
+}
+
+IEnumerator Chain()
+{
+    float a = 0;
+    Vector3[] dir = new Vector3[5];
+    dir[0] = Target.transform.position - chain[0].transform.position;
+    dir[1] = Target.transform.position - chain[1].transform.position;
+    dir[2] = Target.transform.position - chain[2].transform.position;
+    dir[3] = Target.transform.position - chain[3].transform.position;
+    dir[4] = Target.transform.position - chain[4].transform.position;
+
+    float[] Look = new float[5];
+    for (int i = 0; i <= 4; i++)
+    {
+       Look[i] = Mathf.Atan2(dir[i].y, dir[i].x) * Mathf.Rad2Deg;
+    }
+
+    foreach (GameObject chain in chain)
+    {
+        chain.transform.localScale = new Vector3(1, 1, 0);
+    }
+
+    
+        for (int i = 0; i <= 4; i++)
+        {
+            chain[i].transform.rotation = Quaternion.Euler(0, 0, Look[i] + 85f);
+            a = Mathf.Lerp(chain[i].transform.localScale.y, chain[i].transform.localScale.y * 2, 3f);
+            chain[i].transform.localScale = new Vector3(2, a, 1);
+        }
+        yield return null;
+
+    yield return new WaitForSeconds(2f);
+    cor = null;
+}
+
+
+
+
+public void EndPoint()
+{
+    sword.transform.GetChild(0).gameObject.SetActive(true);
+    sword.transform.GetChild(1).gameObject.SetActive(false);
+}
+
 }

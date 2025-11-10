@@ -12,3 +12,4 @@ EditorBuildSettings:
     path: Assets/0_Scenes/Lobby.unity
     guid: a35c75a2f69e74b9f90977fe7a26b83c
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
