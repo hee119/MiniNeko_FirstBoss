@@ -38,7 +38,10 @@ public class PlayerHealth : MonoBehaviour
                 _curHp = 0;
                 diedUI.SetActive(true);
             }
-            _curHp = value;
+            else
+            {
+                _curHp = value;
+            }
             targetPer = _curHp / maxHp;
             DOTween.To(() => curPer, x => curPer = x, targetPer, 0.5f).SetEase(Ease.OutQuad);
         }   
