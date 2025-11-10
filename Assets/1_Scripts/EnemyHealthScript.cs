@@ -21,8 +21,10 @@ public class EnemyHealthScript : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log("hitt");
         if (col.CompareTag("PlayerAttack")){
             Health -= 20;
+            Debug.Log("HHiitt");
         }
     }
     // Update is called once per frame
