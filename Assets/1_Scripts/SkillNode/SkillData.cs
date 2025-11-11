@@ -8,10 +8,8 @@ public class SkillData : ScriptableObject
 {
     public string skillName;
     public Sprite icon;
-    public int cost = 1;
     public int maxRank = 1;
-    public int requiredLevel;
+    public int cost = 1;
     public SkillData[] preRequisites;
-    public List<SkillData> nextSkills;
     [TextArea] public string description;
 }

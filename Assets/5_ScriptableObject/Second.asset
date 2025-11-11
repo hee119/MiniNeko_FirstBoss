@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: asdff
   icon: {fileID: 0}
-  cost: 1
   maxRank: 5
-  requiredLevel: 0
+  cost: 1
   preRequisites:
   - {fileID: 11400000, guid: 45df31146545e92459f578bc5d154370, type: 2}
-  nextSkills: []
   description: asdf
