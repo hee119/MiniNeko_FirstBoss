@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: sss
   icon: {fileID: 0}
-  maxRank: 3
   cost: 1
+  maxRank: 3
+  requiredLevel: 0
   preRequisites:
   - {fileID: 11400000, guid: 45df31146545e92459f578bc5d154370, type: 2}
+  nextSkills:
+  - {fileID: 11400000, guid: 7713a9ee7037f464999796930e81e5fc, type: 2}
   description: 

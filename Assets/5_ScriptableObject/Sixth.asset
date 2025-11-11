@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 465270165308da3418bad72da022b1c2, type: 3}
-  m_Name: First
+  m_Name: Sixth
   m_EditorClassIdentifier: 
-  skillName: First
+  skillName: 
   icon: {fileID: 0}
   cost: 1
-  maxRank: 5
+  maxRank: 1
   requiredLevel: 0
-  preRequisites: []
-  nextSkills:
-  - {fileID: 11400000, guid: 586226ddb48c41245a1abf6392e8bd83, type: 2}
+  preRequisites:
   - {fileID: 11400000, guid: 9fbf03691ea48c84586b05d870e388b2, type: 2}
-  - {fileID: 11400000, guid: 4dec1fa9ac063f44a95298996a7ae2d6, type: 2}
-  - {fileID: 11400000, guid: 993ffd78e6d19e841bb8510f4c22ec39, type: 2}
-  description: asdf
+  nextSkills:
+  - {fileID: 11400000, guid: 18c8012f41e19c04abc4349ea8797834, type: 2}
+  - {fileID: 11400000, guid: 101beb371b18af04e95882d4746e166e, type: 2}
+  - {fileID: 11400000, guid: c03e642f0469030498c70113a76ec856, type: 2}
+  description: 
