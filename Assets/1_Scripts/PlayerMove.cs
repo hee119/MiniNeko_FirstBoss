@@ -50,6 +50,7 @@ public class PlayerMove : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Q) && !isDashing)
             {
+                gameObject.GetComponent<PlayerHealth>().invisibleTime = Time.time + 0.1f;
                 isDashing = true;
                 Dashing = lastFace * DashForce;
             }

@@ -48,10 +48,10 @@ public class PlayerHealth : MonoBehaviour
             DOTween.To(() => curPer, x => curPer = x, targetPer, 0.5f).SetEase(Ease.OutQuad);
         }   
     }
-    public void Damage(int num){
+    public void Damage(int num,float addInv = 0.1f){
         if (invisibleTime < Time.time){
             CurHp -= num;
-            invisibleTime = Time.time + 0.3f;
+            invisibleTime = Time.time + addInv;
         }
     }
     void Update()

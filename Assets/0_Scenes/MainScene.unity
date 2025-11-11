@@ -2152,10 +2152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17233f96396d41e0a77825ad4ea6350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 1000
   hpBar: {fileID: 1661538369}
   healthText: {fileID: 1233848567}
   diedUI: {fileID: 367699701}
+  invisibleTime: 0
 --- !u!95 &1826793356
 Animator:
   serializedVersion: 5
@@ -2791,8 +2792,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
+  Damage: 10
   Type: Stay
+  invisibleTime: 0.01
 --- !u!61 &8068589429916244334
 BoxCollider2D:
   m_ObjectHideFlags: 0
