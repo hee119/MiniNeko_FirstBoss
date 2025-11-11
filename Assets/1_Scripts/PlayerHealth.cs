@@ -17,10 +17,12 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI healthText;
     public GameObject diedUI;
     float nuckback = 0f;
+    public float invisibleTime;
     Vector2 lF;
     float mvs;
     void Start()
     {
+        invisibleTime = Time.time;
         CurHp = maxHp;
         mvs = gameObject.GetComponent<PlayerMove>().moveSpeed;
     }
@@ -46,8 +48,11 @@ public class PlayerHealth : MonoBehaviour
             DOTween.To(() => curPer, x => curPer = x, targetPer, 0.5f).SetEase(Ease.OutQuad);
         }   
     }
-    public void Damage(int num){
-        CurHp -= num;
+    public void Damage(int num,float addInv = 0.1f){
+        if (invisibleTime < Time.time){
+            CurHp -= num;
+            invisibleTime = Time.time + addInv;
+        }
     }
     void Update()
     {

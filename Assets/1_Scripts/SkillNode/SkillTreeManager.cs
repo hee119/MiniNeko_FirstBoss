@@ -87,7 +87,6 @@ public class SkillTreeManager : MonoBehaviour
             }
         }
     }
-
     SkillNodeUI CreateNode(SkillData data, Vector2 position)
     {
         if (data == null || nodes.ContainsKey(data)) return nodes[data];
@@ -127,7 +126,7 @@ public class SkillTreeManager : MonoBehaviour
     void OnNodeClicked(SkillNodeUI node)
     {
         bool canUnlock = true;
-        foreach(var pre in node.skillData.preRequisites)
+        foreach (var pre in node.skillData.preRequisites)
         {
             if (pre == null)
             {
@@ -162,7 +161,7 @@ public class SkillTreeManager : MonoBehaviour
     }
     public void LoadProgress()
     {
-        foreach(var kv in nodes)
+        foreach (var kv in nodes)
         {
             string key = "skill" + kv.Key.name;
             if (PlayerPrefs.HasKey(key))

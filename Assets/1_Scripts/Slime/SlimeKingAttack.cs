@@ -49,10 +49,11 @@ public class SlimeKingAttack : MonoBehaviour
         //2 phase
         if (gameObject.GetComponent<EnemyHealthScript>().Health < gameObject.GetComponent<EnemyHealthScript>().StartHealth / 2)
         {
-            Debug.Log("halfHp");
+            Debug.Log("HPHALF");
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(255,0,0);
+            Debug.Log("COLORCHANGE");
             if (Time.time - mscooltime > 5f)
             {
-                Debug.Log("maybe missile Launched");
                 mscooltime = Time.time;
                 coroutine = SummonMissile(4);
                 StartCoroutine(coroutine);
