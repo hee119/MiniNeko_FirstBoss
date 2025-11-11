@@ -9,56 +9,102 @@ public class SkillTreeManager : MonoBehaviour
     public GameObject nodePrefab;
     public GameObject connectionPrefab;
     public SkillData[] allSkills;
+    public SkillData rootSkill;
 
     private Dictionary<SkillData, SkillNodeUI> nodes = new Dictionary<SkillData, SkillNodeUI>();
     private List<GameObject> connections = new List<GameObject>();
 
+    public List<SkillData> nextSkills = new List<SkillData>();
+
     private void Start()
     {
-        BuildTree();
+        BuildTreeRecursive(rootSkill, Vector2.zero, 250f, 0);
     }
-
-    void BuildTree()
+    void BuildTreeRecursive(SkillData current, Vector2 position, float radius, float angleOffset, int depth = 0, Vector2? fromDir = null)
     {
-        float startX = -400f;
-        float startY = 200f;
-        float xStep = 180;
-        float yStep = -140;
-        for (int i = 0; i < allSkills.Length; i++)
+        // 현재 노드 생성
+        SkillNodeUI ui = CreateNode(current, position);
+
+        if (current.nextSkills == null || current.nextSkills.Count == 0)
+            return;
+        if (depth == 0)
         {
-            SkillData data = allSkills[i];
-            GameObject g = Instantiate(nodePrefab, contentRoot);
-            RectTransform rt = g.GetComponent<RectTransform>();
-            int col = i % 4;
-            int row = i / 4;
-            rt.anchoredPosition = new Vector2(startX + col * xStep, startY + row * yStep);
-
-            SkillNodeUI ui = g.GetComponent<SkillNodeUI>();
-            ui.skillData = data;
-            ui.SetRank(0);
-            ui.onClicked += OnNodeClicked;
-
-            nodes[data] = ui;
-        }
-
-        foreach(var kv in nodes)
-        {
-            SkillData data = kv.Key;
-            SkillNodeUI fromUI = kv.Value;
-            if (data.preRequisites == null) 
-                continue;
-            foreach(var pre in data.preRequisites)
+            float angleStep = 360f / current.nextSkills.Count;
+            for (int i = 0; i < current.nextSkills.Count; i++)
             {
-                if (pre == null) 
-                    continue;
-                if (!nodes.ContainsKey(pre))
-                    continue;
-                SkillNodeUI toUI = fromUI;
-                SkillNodeUI fromPreUI = nodes[pre];
-                CreateConnecton(fromPreUI.GetComponent<RectTransform>(), toUI.GetComponent<RectTransform>());
+                SkillData child = current.nextSkills[i];
+                float angle = (angleStep * i + angleOffset) * Mathf.Deg2Rad;
+                Vector2 dir = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+                Vector2 childPos = position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+
+                SkillNodeUI childUI = CreateNode(child, childPos);
+                CreateConnecton(ui.GetComponent<RectTransform>(), childUI.GetComponent<RectTransform>());
+
+                BuildTreeRecursive(child, childPos, radius * 0.75f, angleOffset + (angleStep * i), depth + 1, dir);
+            }
+        }
+        else
+        {
+            Vector2[] directions = new Vector2[]
+            {
+                new Vector2 (1, 0),
+                new Vector2 (1, 1),
+                new Vector2 (0, 1),
+                new Vector2 (-1, 1),
+                new Vector2 (-1, 0),
+                new Vector2 (-1, -1),
+                new Vector2 (0, -1),
+                new Vector2 (1, -1)
+            };
+
+            int startIndex = 0;
+            if (fromDir.HasValue)
+            {
+                float bestDot = -999;
+                for (int i = 0; i < directions.Length; i++)
+                {
+                    float dot = Vector2.Dot(fromDir.Value, directions[i]);
+                    if (bestDot < dot)
+                    {
+                        bestDot = dot;
+                        startIndex = i;
+                    }
+                }
+                for (int i = 0; i < current.nextSkills.Count; i++)
+                {
+                    SkillData child = current.nextSkills[i];
+                    int dirIndex = (startIndex + i) % directions.Length;
+                    Vector2 dir = directions[dirIndex];
+
+                    Vector2 childPos = position + dir * radius;
+
+                    SkillNodeUI childUI = CreateNode(child, childPos);
+                    CreateConnecton(ui.GetComponent<RectTransform>(), childUI.GetComponent<RectTransform>());
+
+                    BuildTreeRecursive(child, childPos, radius * 0.75f, angleOffset, depth + 1, dir);
+                }
+
             }
         }
     }
+
+    SkillNodeUI CreateNode(SkillData data, Vector2 position)
+    {
+        if (data == null || nodes.ContainsKey(data)) return nodes[data];
+
+        GameObject g = Instantiate(nodePrefab, contentRoot);
+        RectTransform rt = g.GetComponent<RectTransform>();
+        rt.anchoredPosition = position;
+
+        SkillNodeUI ui = g.GetComponent<SkillNodeUI>();
+        ui.skillData = data;
+        ui.SetRank(0);
+        ui.onClicked += OnNodeClicked;
+
+        nodes[data] = ui;
+        return ui;
+    }
+
     void CreateConnecton(RectTransform a, RectTransform b)
     {
         GameObject conn = Instantiate(connectionPrefab, contentRoot);
