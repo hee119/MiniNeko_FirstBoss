@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a9003a7-ff6f-4f2d-b96c-826e395cf81d" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MiniNeko_FirstBoss/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MiniNeko_FirstBoss/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Chain.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Chain.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/LichKingAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/LichKingAttack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/LichKingAttack.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/LichKingAttack.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LichKingAttack.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
-    </list>
+    <list default="true" id="5a9003a7-ff6f-4f2d-b96c-826e395cf81d" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,6 +105,7 @@
       <workItem from="1762773666858" duration="7000" />
       <workItem from="1762839572771" duration="4000" />
       <workItem from="1762839669660" duration="79000" />
+      <workItem from="1762840072191" duration="127000" />
     </task>
     <servers />
   </component>
