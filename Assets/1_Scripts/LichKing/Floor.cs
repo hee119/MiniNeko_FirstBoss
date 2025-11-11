@@ -30,7 +30,7 @@ public class Floor : MonoBehaviour
             {
                 _chain.isStay = true;
             }
-            target.GetComponent<Rigidbody2D>().linearVelocity *= 0.5f;
+            target.GetComponent<Rigidbody2D>().velocity *= 0.5f;
             t += Time.deltaTime;
             if (t >= 2)
             {

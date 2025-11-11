@@ -10,7 +10,6 @@ using Random = UnityEngine.Random;
 public class LichKingAttack : MonoBehaviour
 {
     public GameObject Target;
-    int PasePettenOneDamage = 40;
     private Vector3 flipx;
     Rigidbody2D rb;
     public Transform sword;
@@ -49,13 +48,13 @@ public class LichKingAttack : MonoBehaviour
         {
             flipx.x = Mathf.Abs(flipx.x); 
             transform.localScale = flipx;
-            rb.linearVelocity = Vector2.left * 0.7f * Math.Abs(transform.transform.position.x - Target.transform.position.x);
+            rb.velocity = Vector2.left * 0.7f * Math.Abs(transform.transform.position.x - Target.transform.position.x);
         }
         else
         {
             flipx.x = -Mathf.Abs(flipx.x);
             transform.localScale = flipx;
-            rb.linearVelocity = Vector2.right * 0.7f * Math.Abs(transform.transform.position.x - Target.transform.position.x);
+            rb.velocity = Vector2.right * 0.7f * Math.Abs(transform.transform.position.x - Target.transform.position.x);
         }
             }
 
@@ -284,7 +283,7 @@ public class LichKingAttack : MonoBehaviour
    IEnumerator Coroutine_Creck()
 {
     isCrecked = true;
-    rb.linearVelocity = Vector2.zero;
+    rb.velocity = Vector2.zero;
     int ran = Random.Range(0, 3);
     sr.sprite = Attack[1];
     crack.gameObject.SetActive(true);
