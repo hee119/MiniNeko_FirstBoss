@@ -85,7 +85,7 @@ public class SkillTreeManager : MonoBehaviour
         {
             if (pre == null)
             {
-                Debug.LogError($"[ERROR] 스킬 데이터 '{node.skillData.skillName}'의 선행 스킬 배열에 NULL 참조가 있습니다. 에디터에서 확인하세요!", node.skillData);
+                Debug.LogError($"[ERROR] 스킬 데이터 '{node.skillData.skillName}'의 선행 스킬 배열에 NULL 참조가 있습니다. 에디터에서 확인하세요!!", node.skillData);
                 canUnlock = false;
                 break;
             }
