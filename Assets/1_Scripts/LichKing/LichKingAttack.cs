@@ -68,9 +68,9 @@ public class LichKingAttack : MonoBehaviour
             {
 
                 
-                while (pettenSycle == lastPettenSycle)
+                //while (pettenSycle == lastPettenSycle)
                 {
-                    pettenSycle = Random.Range(0, 4);
+                  //  pettenSycle = Random.Range(0, 4);
                 }
 
                 
@@ -395,37 +395,74 @@ public class LichKingAttack : MonoBehaviour
 
 IEnumerator Chain()
 {
-    float a = 0;
     Vector3[] dir = new Vector3[5];
-    dir[0] = Target.transform.position - chain[0].transform.position;
-    dir[1] = Target.transform.position - chain[1].transform.position;
-    dir[2] = Target.transform.position - chain[2].transform.position;
-    dir[3] = Target.transform.position - chain[3].transform.position;
-    dir[4] = Target.transform.position - chain[4].transform.position;
-
     float[] Look = new float[5];
-    for (int i = 0; i <= 4; i++)
+    float[] startScale = new float[5];
+    float[] targetScale = new float[5];
+
+    // 방향과 목표 길이 미리 계산
+    for (int i = 0; i < 5; i++)
     {
-       Look[i] = Mathf.Atan2(dir[i].y, dir[i].x) * Mathf.Rad2Deg;
+        dir[i] = Target.transform.position - chain[i].transform.position;
+        Look[i] = Mathf.Atan2(dir[i].y, dir[i].x) * Mathf.Rad2Deg;
+        startScale[i] = chain[i].transform.localScale.y;
+        targetScale[i] = dir[i].magnitude;
     }
 
-    foreach (GameObject chain in chain)
+    // 체인 늘리기
+    float elapsed = 0f;
+    while (elapsed < 1f)
     {
-        chain.transform.localScale = new Vector3(1, 1, 0);
-    }
+        elapsed += Time.deltaTime * 3f;
+        float t = Mathf.Clamp01(elapsed);
 
-    
-        for (int i = 0; i <= 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             chain[i].transform.rotation = Quaternion.Euler(0, 0, Look[i] + 85f);
-            a = Mathf.Lerp(chain[i].transform.localScale.y, chain[i].transform.localScale.y * 2, 3f);
-            chain[i].transform.localScale = new Vector3(2, a, 1);
+            float newY = Mathf.Lerp(startScale[i], targetScale[i], t);
+            chain[i].transform.localScale = new Vector3(2, newY, 1);
         }
+
         yield return null;
+    }
+
+    yield return new WaitForSeconds(0.5f);
+
+    // isTrigger == false 인 체인만 동시에 줄이기
+    float shrinkElapsed = 0f;
+    float shrinkDuration = 1f;
+
+    // false인 체인들의 초기값 저장
+    float[] shrinkStart = new float[5];
+    for (int i = 0; i < 5; i++)
+    {
+        if (!chain[i].GetComponent<Chain>().isTrigger)
+            shrinkStart[i] = chain[i].transform.localScale.y;
+    }
+
+    while (shrinkElapsed < shrinkDuration)
+    {
+        shrinkElapsed += Time.deltaTime * 2f;
+        float t = Mathf.Clamp01(shrinkElapsed);
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (!chain[i].GetComponent<Chain>().isTrigger)
+            {
+                float newY = Mathf.Lerp(shrinkStart[i], 0f, t);
+                chain[i].transform.localScale = new Vector3(2, newY, 1);
+            }
+        }
+
+        yield return null;
+    }
 
     yield return new WaitForSeconds(2f);
     cor = null;
 }
+
+
+
 
 
 

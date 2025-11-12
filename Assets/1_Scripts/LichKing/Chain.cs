@@ -5,24 +5,15 @@ using UnityEngine;
 public class Chain : MonoBehaviour
 {
     public GameObject target;
-    public float stretchSpeed = 5f;
     public GameObject Flooring;
     public bool isStay;
     public bool isTrigger;
     public GameObject[] portal;
-    private SpriteRenderer sr;
     private Vector3 scale;
-
-
-    void Awake()
-    {
-
-        sr = GetComponent<SpriteRenderer>();
-    }
 
     private void Update()
     {
-        if (GetComponent<BoxCollider2D>().offset.x != 0f || GetComponent<BoxCollider2D>().offset.x != 0f)
+        if (GetComponent<BoxCollider2D>().offset.x != 0f || GetComponent<BoxCollider2D>().offset.y != 0f)
         {
             Vector2 a = GetComponent<BoxCollider2D>().offset;
             a.x = 0;
@@ -31,24 +22,18 @@ public class Chain : MonoBehaviour
         }
         if (scale.x > 0)
         {
-            foreach (var h in portal)
+            foreach (GameObject h in portal)
             {
                 h.transform.localScale = new Vector2(0.1f, 0.1f);
             }
         }
         else
         {
-            foreach (var h in portal)
+            foreach (GameObject h in portal)
             {
                 h.transform.localScale = new Vector2(0, 0);
             }
         }
-        
-            if (isStay == false || isTrigger == false)
-            {
-                float a = Mathf.Lerp(transform.localScale.y, 0, 2);
-                transform.localScale = new Vector3(a, a, a);
-            }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -56,25 +41,26 @@ public class Chain : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isTrigger = true;
-            Debug.Log(Flooring.name);
             StartCoroutine(StretchRoutine());
         }
-
-        IEnumerator StretchRoutine()
+        }
+    IEnumerator StretchRoutine()
+    {
+        Vector3 dir;
+        float t = 0;
+        float Look;
+        float a;
+        yield return new WaitForSeconds(0.1f);
+        while (isStay)
         {
-            float t = 0;
-            while (isTrigger)
-            {
-                Vector3 dir = target.transform.position - transform.position;
-                float Look = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0, 0, Look + 85);
-                float a = Mathf.Lerp(transform.localScale.y, t * 2, t / 2);
-                transform.localScale = new Vector3(2, a, 1);
-                t += Time.deltaTime;
-                yield return null;
-            }
+            dir = target.transform.position - transform.position;
+            Look = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, Look + 85);
+            a = Mathf.Lerp(transform.localScale.y, dir.magnitude, t);
+            transform.localScale = new Vector3(2, a, 1);
+            t += Time.deltaTime;
+            yield return null;
         }
-
-        }
+    }
 
     }
