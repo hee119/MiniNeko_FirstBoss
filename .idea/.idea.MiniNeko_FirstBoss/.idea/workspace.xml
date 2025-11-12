@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="5a9003a7-ff6f-4f2d-b96c-826e395cf81d" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MiniNeko_FirstBoss/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MiniNeko_FirstBoss/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/0_Scenes/Boss 3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/0_Scenes/Boss 3.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Chain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Chain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/LichKingAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/LichKingAttack.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +105,7 @@
       <workItem from="1762419117430" duration="9904000" />
       <workItem from="1762475783828" duration="14627000" />
       <workItem from="1762694082517" duration="16073000" />
-      <workItem from="1762921372497" duration="614000" />
+      <workItem from="1762921372497" duration="3421000" />
     </task>
     <servers />
   </component>

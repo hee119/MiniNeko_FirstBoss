@@ -11,6 +11,10 @@ public class Chain : MonoBehaviour
     public GameObject[] portal;
     private Vector3 scale;
 
+    void Awake()
+    {
+        transform.localScale = Vector3.zero;
+    }
     private void Update()
     {
         if (GetComponent<BoxCollider2D>().offset.x != 0f || GetComponent<BoxCollider2D>().offset.y != 0f)
@@ -40,7 +44,7 @@ public class Chain : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            isTrigger = true;
+            StartCoroutine(Flooring.GetComponent<Floor>().LocalScale());
             StartCoroutine(StretchRoutine());
         }
         }

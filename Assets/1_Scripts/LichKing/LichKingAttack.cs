@@ -61,16 +61,16 @@ public class LichKingAttack : MonoBehaviour
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(2, 3);
+        int pettenSycle = Random.Range(0, 3);
         while (true)
         {
             if (cor == null)
             {
 
                 
-                //while (pettenSycle == lastPettenSycle)
+                while (pettenSycle == lastPettenSycle)
                 {
-                  //  pettenSycle = Random.Range(0, 4);
+                    pettenSycle = Random.Range(0, 3);
                 }
 
                 
@@ -80,11 +80,11 @@ public class LichKingAttack : MonoBehaviour
                 {
                     case 0:
                         cor = Coroutine_SwingAttack();
-                        yield return Coroutine_SwingAttack();;
+                        yield return cor;
                         break;
                     case 1:
                         cor = Coroutine_Creck();
-                        yield return Coroutine_Creck();;
+                        yield return cor;
                         break;
 
                 }
@@ -95,7 +95,7 @@ public class LichKingAttack : MonoBehaviour
                     {
                         case 2:
                             cor = Chain();
-                            yield return Chain();;
+                            yield return cor;
                             break;
                         case 3:
 
@@ -204,6 +204,11 @@ public class LichKingAttack : MonoBehaviour
                         
                         yield return null;
                     }
+
+                    if (Mathf.Abs(Target.transform.position.x - transform.position.x) <= 2)
+                    {
+                        yield return Coroutine_Creck();
+                    }
                     break;
 
                 case 1:
@@ -215,6 +220,11 @@ public class LichKingAttack : MonoBehaviour
                     
                     anim.SetTrigger("Attack2");
                     
+                    yield return new WaitForSeconds(2);
+                    if (Mathf.Abs(Target.transform.position.x - transform.position.x) <= 2)
+                    {
+                        yield return Coroutine_Creck();
+                    }
                     break;
 
                 case 2:
@@ -271,6 +281,10 @@ public class LichKingAttack : MonoBehaviour
                             speed * Time.deltaTime
                         );
                         yield return null;
+                    }
+                    if (Mathf.Abs(Target.transform.position.x - transform.position.x) <= 2)
+                    {
+                        yield return Coroutine_Creck();
                     }
                     break;
             }
@@ -458,7 +472,7 @@ IEnumerator Chain()
     }
 
     yield return new WaitForSeconds(2f);
-    cor = null;
+    yield return Coroutine_Creck();
 }
 
 
