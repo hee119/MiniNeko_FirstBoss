@@ -1516,8 +1516,8 @@ Transform:
   m_GameObject: {fileID: 415955601}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0324, y: -0.1646, z: 10}
-  m_LocalScale: {x: 2.6, y: 2.7, z: 1}
+  m_LocalPosition: {x: -0.1484, y: -0.0922, z: 10}
+  m_LocalScale: {x: 4.828518, y: 2.714157, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 519420032}
@@ -1876,7 +1876,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 14
+  orthographic size: 13.895822
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3889,7 +3889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17233f96396d41e0a77825ad4ea6350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 10000
   hpBar: {fileID: 115238415}
   healthText: {fileID: 516334749}
   diedUI: {fileID: 367699701}
@@ -5095,7 +5095,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.2}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5169,8 +5169,8 @@ Transform:
   m_GameObject: {fileID: 2084633151}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.9460926, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -4.9, z: 0}
+  m_LocalScale: {x: 20, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

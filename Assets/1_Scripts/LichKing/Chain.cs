@@ -44,27 +44,29 @@ public class Chain : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            StartCoroutine(Flooring.GetComponent<Floor>().LocalScale());
+            isTrigger = true;
+            isStay = true;
+            StartCoroutine(Flooring.GetComponent<Floor>().Check());
             StartCoroutine(StretchRoutine());
         }
-        }
+    }
     IEnumerator StretchRoutine()
     {
-        Vector3 dir;
-        float t = 0;
-        float Look;
-        float a;
-        yield return new WaitForSeconds(0.1f);
+        // 체인 늘리기
+        yield return new WaitForSeconds(0.2f);
         while (isStay)
         {
-            dir = target.transform.position - transform.position;
-            Look = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, Look + 85);
-            a = Mathf.Lerp(transform.localScale.y, dir.magnitude, t);
-            transform.localScale = new Vector3(2, a, 1);
-            t += Time.deltaTime;
-            yield return null;
+            Vector3 dir = target.transform.position - transform.position;
+            float look = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, look + 85);
+
+            float targetLength = 10f; // 원하는 길이
+            transform.localScale = new Vector3(2, Mathf.MoveTowards(transform.localScale.y, targetLength, Time.deltaTime * 10f), 1);
+
+            yield return null; // 매 프레임 갱신
         }
     }
+
+
 
     }
