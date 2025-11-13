@@ -10,19 +10,19 @@ public class Chain : MonoBehaviour
     public bool isTrigger;
     public GameObject[] portal;
     private Vector3 scale;
+    private Vector2 a;
 
     void Awake()
     {
         transform.localScale = Vector3.zero;
+        a = GetComponent<BoxCollider2D>().offset;
     }
     private void Update()
     {
-        if (GetComponent<BoxCollider2D>().offset.x != 0f || GetComponent<BoxCollider2D>().offset.y != 0f)
+        if (a.x != 0f || a.y != 0f)
         {
-            Vector2 a = GetComponent<BoxCollider2D>().offset;
             a.x = 0;
             a.y = 0;
-            GetComponent<BoxCollider2D>().offset = a;
         }
         if (scale.x > 0)
         {
