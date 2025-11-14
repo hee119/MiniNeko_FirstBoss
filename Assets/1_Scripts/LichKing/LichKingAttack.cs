@@ -20,6 +20,7 @@ public class LichKingAttack : MonoBehaviour
     bool isCrecked;
     public Sprite[] Attack;
     public GameObject[] chain;
+    private Collider2D[] chainCollider;
     SpriteRenderer sr;
     bool isDelay;
     
@@ -33,6 +34,12 @@ public class LichKingAttack : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = transform.GetChild(0).GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        chainCollider = new Collider2D[chain.Length];
+        for (int i = 0; i < chain.Length; i++)
+        {
+            chainCollider[i] = chain[i].GetComponent<Collider2D>();
+        }
+        
     }
 
     private void Start()
@@ -409,6 +416,7 @@ public class LichKingAttack : MonoBehaviour
 
 IEnumerator Chain()
 {
+    
     Vector3[] dir = new Vector3[5];
     float[] Look = new float[5];
     float[] startScale = new float[5];
@@ -417,6 +425,7 @@ IEnumerator Chain()
     // 방향과 목표 길이 미리 계산
     for (int i = 0; i < 5; i++)
     {
+        chainCollider[i].enabled = true;
         dir[i] = Target.transform.position - chain[i].transform.position;
         Look[i] = Mathf.Atan2(dir[i].y, dir[i].x) * Mathf.Rad2Deg;
         startScale[i] = chain[i].transform.localScale.y;
@@ -439,39 +448,8 @@ IEnumerator Chain()
 
         yield return null;
     }
+    yield return new WaitForSeconds(6f);
 
-    yield return new WaitForSeconds(0.5f);
-
-    // isTrigger == false 인 체인만 동시에 줄이기
-    float shrinkElapsed = 0f;
-    float shrinkDuration = 1f;
-
-    // false인 체인들의 초기값 저장
-    float[] shrinkStart = new float[5];
-    for (int i = 0; i < 5; i++)
-    {
-        if (!chain[i].GetComponent<Chain>().isTrigger)
-            shrinkStart[i] = chain[i].transform.localScale.y;
-    }
-
-    while (shrinkElapsed < shrinkDuration)
-    {
-        shrinkElapsed += Time.deltaTime * 2f;
-        float t = Mathf.Clamp01(shrinkElapsed);
-
-        for (int i = 0; i < 5; i++)
-        {
-            if (!chain[i].GetComponent<Chain>().isTrigger)
-            {
-                float newY = Mathf.Lerp(shrinkStart[i], 0f, t);
-                chain[i].transform.localScale = new Vector3(2, newY, 1);
-            }
-        }
-
-        yield return null;
-    }
-
-    yield return new WaitForSeconds(4f);
     cor = null;
 }
 

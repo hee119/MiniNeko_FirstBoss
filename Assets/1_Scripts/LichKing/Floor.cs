@@ -8,12 +8,20 @@ public class Floor : MonoBehaviour
     public Chain[] chain;
     private SpriteRenderer sr;
     private Collider2D cor;
-    bool isCheck;
+    public bool isCheck;
+    public bool isStay;
+    private Collider2D[] chainCollider;
 
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         cor = GetComponent<Collider2D>();
+        chainCollider = new Collider2D[chain.Length];
+        for (int i = 0; i < chain.Length; i++)
+        {
+            chainCollider[i] = chain[i].GetComponent<Collider2D>();
+        }
+
         sr.enabled = false;
         cor.enabled = false;
     }
@@ -38,12 +46,15 @@ public class Floor : MonoBehaviour
     }
     public IEnumerator LocalScale()
     {
-        if (isCheck)
+        if(isStay) yield break;
+            
+        isStay = true;
+        isCheck = true;
+        if (!sr.enabled && !cor.enabled)
         {
-            transform.position = new Vector2(target.transform.position.x, transform.position.y);
-            sr.enabled = true;
-            cor.enabled = true;
-            yield return new WaitForSeconds(0.05f);
+                    transform.position = new Vector2(target.transform.position.x, transform.position.y);
+                    sr.enabled = true;
+                    cor.enabled = true;
         }
     }
     private void OnTriggerExit2D(Collider2D a)
@@ -53,29 +64,21 @@ public class Floor : MonoBehaviour
             target.GetComponent<PlayerMove>().moveSpeed = 7f;
             target.GetComponent<PlayerMove>().JumpPower = 5;
             target.GetComponent<PlayerMove>().DashForce = 5;
+            StartCoroutine( ShrinkChain());
         }
-        StartCoroutine( ShrinkChain());
     }
 
     
     IEnumerator ShrinkChain()
     {
         isCheck = false;
+        isStay = false;
         cor.enabled = false;
         sr.enabled = false;
         t = 0;
 
-        // 모든 체인의 isStay를 false
-        foreach (Chain _chain in chain)
-        {
-            if (_chain != null)
-                _chain.isStay = false;
-                _chain.isTrigger = false;
-
-        }
-
         bool anyChainLeft = true;
-
+        
         // 최소 하나라도 줄일 체인이 있을 때 반복
         while (anyChainLeft)
         {
@@ -89,7 +92,7 @@ public class Floor : MonoBehaviour
                 if (_chain.transform.localScale.y > 0.01f)
                 {
                     // y값을 조금씩 줄이기
-                    float newY = Mathf.MoveTowards(_chain.transform.localScale.y, 0f, 2 * Time.deltaTime);
+                    float newY = Mathf.MoveTowards(_chain.transform.localScale.y, 0f, 3 * Time.deltaTime);
                     _chain.transform.localScale = new Vector3(_chain.transform.localScale.x, newY, _chain.transform.localScale.z);
 
                     anyChainLeft = true; // 아직 줄일 체인이 있음
@@ -105,21 +108,17 @@ public class Floor : MonoBehaviour
             if (_chain != null)
                 _chain.transform.localScale = new Vector3(_chain.transform.localScale.x, 0f, _chain.transform.localScale.z);
         }
-    }
-
-    public IEnumerator Check()
-    {
-        if(isCheck)
-            yield break;
         
+        for (int i = 0; i < chain.Length; i++)
+        {
+            chainCollider[i].enabled = true;
+        }
         foreach (Chain _chain in chain)
         {
-            if (!_chain.isTrigger)
-                continue;
-            isCheck = true;
+            if (_chain != null)
+            {
+                _chain.isTrigger = false;
+            }
         }
-
-        yield return LocalScale();
     }
-
 }
