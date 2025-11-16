@@ -8,7 +8,7 @@ public class Chain : MonoBehaviour
     public GameObject Flooring;
     private Floor floor;
     public bool isTrigger;
-    public GameObject[] portal;
+    public GameObject portal;
     private Vector2 a;
     private Collider2D col;
 
@@ -28,17 +28,11 @@ public class Chain : MonoBehaviour
         }
         if (transform.localScale.y > 0)
         {
-            foreach (GameObject h in portal)
-            {
-                h.transform.localScale = new Vector2(0.1f, 0.1f);
-            }
+                portal.transform.localScale = new Vector2(0.1f, 0.1f);
         }
         else
         {
-            foreach (GameObject h in portal)
-            {
-                h.transform.localScale = new Vector2(0, 0);
-            }
+                portal.transform.localScale = new Vector2(0f, 0f);
         }
     }
 

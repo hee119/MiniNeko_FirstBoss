@@ -20,6 +20,7 @@ public class LichKingAttack : MonoBehaviour
     bool isCrecked;
     public Sprite[] Attack;
     public GameObject[] chain;
+    private Chain[] ChainScript;
     private Collider2D[] chainCollider;
     SpriteRenderer sr;
     bool isDelay;
@@ -35,9 +36,11 @@ public class LichKingAttack : MonoBehaviour
         sr = transform.GetChild(0).GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
         chainCollider = new Collider2D[chain.Length];
+        ChainScript = new Chain[chain.Length];
         for (int i = 0; i < chain.Length; i++)
         {
             chainCollider[i] = chain[i].GetComponent<Collider2D>();
+            ChainScript[i] = chain[i].GetComponent<Chain>();
         }
         
     }
@@ -445,6 +448,49 @@ IEnumerator Chain()
             float newY = Mathf.Lerp(startScale[i], targetScale[i], t);
             chain[i].transform.localScale = new Vector3(2, newY, 1);
         }
+
+        yield return null;
+    }
+    yield return new WaitForSeconds(0.2f);
+    
+    while (true)
+    {
+        bool allDone = true;
+
+        for (int i = 0; i < 5; i++)
+        {
+            // 이미 Trigger 된 체인은 무시
+            if (ChainScript[i].isTrigger) continue;
+
+            float currentY = ChainScript[i].transform.localScale.y;
+
+            // 아직 크기가 남아있으면 줄여야 함
+            if (currentY > 0.01f)
+            {
+                allDone = false;
+
+                float newY = Mathf.MoveTowards(currentY, 0f, 35 * Time.deltaTime);
+                ChainScript[i].transform.localScale =
+                    new Vector3(
+                        ChainScript[i].transform.localScale.x,
+                        newY,
+                        ChainScript[i].transform.localScale.z
+                    );
+
+                if (newY < 0.09f)
+                {
+                    ChainScript[i].transform.localScale =
+                        new Vector3(
+                            ChainScript[i].transform.localScale.x,
+                            0f,
+                            ChainScript[i].transform.localScale.z
+                        );
+                }
+            }
+        }
+
+        // 모든 체인이 줄어들었으면 종료
+        if (allDone) break;
 
         yield return null;
     }

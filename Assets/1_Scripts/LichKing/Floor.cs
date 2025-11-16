@@ -10,6 +10,7 @@ public class Floor : MonoBehaviour
     private Collider2D cor;
     public bool isCheck;
     public bool isStay;
+    public bool canShrinkChain;
     private Collider2D[] chainCollider;
 
     void Awake()
@@ -34,20 +35,23 @@ public class Floor : MonoBehaviour
             target.GetComponent<PlayerMove>().JumpPower = 0;
             target.GetComponent<PlayerMove>().DashForce = 0;
             t += Time.deltaTime;
-            if (t >= 3)
+            if (t >= 2.5f && canShrinkChain)
             {
+                Debug.Log("Shrink Chain");
+                canShrinkChain = false;
+                StartCoroutine( ShrinkChain());
                 target.transform.position = transform.position;
                 target.GetComponent<PlayerMove>().moveSpeed = 7f;
                 target.GetComponent<PlayerMove>().JumpPower = 5;
                 target.GetComponent<PlayerMove>().DashForce = 5;
-                StartCoroutine( ShrinkChain());
             }
         }
     }
     public IEnumerator LocalScale()
     {
         if(isStay) yield break;
-            
+        
+        canShrinkChain = true;
         isStay = true;
         isCheck = true;
         if (!sr.enabled && !cor.enabled)
@@ -59,8 +63,9 @@ public class Floor : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D a)
     {
-        if (a.CompareTag("Player"))
+        if (a.CompareTag("Player") && canShrinkChain)
         {
+            canShrinkChain = false;
             target.GetComponent<PlayerMove>().moveSpeed = 7f;
             target.GetComponent<PlayerMove>().JumpPower = 5;
             target.GetComponent<PlayerMove>().DashForce = 5;
@@ -71,6 +76,7 @@ public class Floor : MonoBehaviour
     
     IEnumerator ShrinkChain()
     {
+        Debug.Log("A");
         isCheck = false;
         isStay = false;
         cor.enabled = false;
@@ -92,7 +98,7 @@ public class Floor : MonoBehaviour
                 if (_chain.transform.localScale.y > 0.01f)
                 {
                     // y값을 조금씩 줄이기
-                    float newY = Mathf.MoveTowards(_chain.transform.localScale.y, 0f, 3 * Time.deltaTime);
+                    float newY = Mathf.MoveTowards(_chain.transform.localScale.y, 0f, 35 * Time.deltaTime);
                     _chain.transform.localScale = new Vector3(_chain.transform.localScale.x, newY, _chain.transform.localScale.z);
 
                     anyChainLeft = true; // 아직 줄일 체인이 있음
