@@ -74,10 +74,11 @@ public class FallenAngelAttack : MonoBehaviour
     {
         Vector3 coo = new Vector3(player.transform.position.x, 10, 0);
         var lightAttackRange = Instantiate(this.lightSkillRange,coo, Quaternion.identity);
-        yield return new WaitForSeconds(2f);
-        Destroy(lightAttackRange);
-        var lightAttack = Instantiate(this.light, coo, Quaternion.identity);
         yield return new WaitForSeconds(1f);
+        Destroy(lightAttackRange);
+        coo = new Vector3(coo.x,coo.y, -0.1f);
+        var lightAttack = Instantiate(this.light, coo, Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
         Destroy(lightAttack);
     }
     IEnumerator FirstPattern()

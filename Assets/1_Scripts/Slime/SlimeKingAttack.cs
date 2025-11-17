@@ -50,7 +50,6 @@ public class SlimeKingAttack : MonoBehaviour
         if (gameObject.GetComponent<EnemyHealthScript>().Health < gameObject.GetComponent<EnemyHealthScript>().StartHealth / 2)
         {
             Debug.Log("HPHALF");
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(255,0,0);
             Debug.Log("COLORCHANGE");
             if (Time.time - mscooltime > 5f)
             {
