@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
+using UnityEngine.UIElements;
 
 public class FallenAngelAttack : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class FallenAngelAttack : MonoBehaviour
     [SerializeField]
 
     public GameObject chain;
-    public GameObject ChainSkillRange;
+    public GameObject chainSkillRange;
 
     public GameObject sword;
     public GameObject swordGate;
@@ -19,9 +21,12 @@ public class FallenAngelAttack : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
-        ChainAttack();
     }
 
+    private void Start()
+    {
+        StartCoroutine(FirstPattern());
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
@@ -38,13 +43,23 @@ public class FallenAngelAttack : MonoBehaviour
         }
     }
 
-    void ChainAttack()
+    IEnumerator ChainAttack()
     {
-        var chainLeft = Instantiate(chain, (player.transform.position - new Vector3(24, 24, 0)), Quaternion.identity);
-        var chainRight = Instantiate(chain, (player.transform.position + new Vector3(24, -24, 0)), Quaternion.identity);
+        Vector3 coo = player.transform.position;
+        var chainAttackRange = Instantiate(chainSkillRange, coo, Quaternion.identity);
+        yield return new WaitForSeconds(1f);
+        Destroy(chainAttackRange );
+        yield return new WaitForSeconds(0.5f);
+        var chainLeft = Instantiate(chain, (coo - new Vector3(24, 24, 0)), Quaternion.identity);
+        var chainRight = Instantiate(chain, (coo + new Vector3(24, -24, 0)), Quaternion.identity);
         chainRight.GetComponent<Transform>().Rotate(0, 180, 0);
         chainLeft.GetComponent<ChainAttack>().isFlip = 1;
         chainRight.GetComponent<ChainAttack>().isFlip = -1;
+        chainLeft.GetComponent <ChainAttack>().coo = coo;
+        chainRight.GetComponent <ChainAttack>().coo = coo;
+        yield return new WaitForSeconds(5f);
+        Destroy(chainLeft );
+        Destroy(chainRight );
     }
 
     IEnumerator SwordAttack()
@@ -65,4 +80,57 @@ public class FallenAngelAttack : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Destroy(lightAttack);
     }
+    IEnumerator FirstPattern()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(4f);
+            int value = Random.Range(0, 6);
+            switch (value)
+            {
+                case 0:
+                    StartCoroutine(SwordAttack());
+                    yield return new WaitForSeconds(2f);
+                    break;
+                case 1:
+                    StartCoroutine(ChainAttack());
+                    StartCoroutine(SwordAttack());
+                    yield return new WaitForSeconds(2f);
+                    break;
+                case 2:
+                    StartCoroutine (SwordAttack());
+                    yield return new WaitForSeconds (2f);
+                    StartCoroutine(SwordAttack());
+                    yield return new WaitForSeconds(2f);
+                    break;
+                case 3:
+                    StartCoroutine(ChainAttack());
+                    yield return new WaitForSeconds(2f);
+                    StartCoroutine(LightAttack());
+                    break;
+                case 4:
+                    StartCoroutine(LightAttack());
+                    yield return new WaitForSeconds(1f);
+                    StartCoroutine (LightAttack());
+                    yield return new WaitForSeconds(1f);
+                    StartCoroutine(LightAttack());
+                    yield return new WaitForSeconds(2f);
+                    break;
+                case 5:
+                    StartCoroutine(SwordAttack());
+                    yield return new WaitForSeconds(2f);
+                    StartCoroutine(ChainAttack());
+                    StartCoroutine (LightAttack());
+                    break;
+                default:
+                    Debug.LogWarning("Error?!?!?");
+                    break;
+            }
+
+        }
+    }
+    //IEnumerator SecondPattern()
+    //{
+
+    //}
 }

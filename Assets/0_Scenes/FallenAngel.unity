@@ -1442,7 +1442,7 @@ Transform:
   m_GameObject: {fileID: 1368329407}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 5.73, y: -1.8, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chain: {fileID: 2056171924223731765, guid: 4b99dd28340612d46bec255251e9a111, type: 3}
-  ChainSkillRange: {fileID: 1319619788460228979, guid: 45b3e0a3a2255644598dcab8293d2cbc, type: 3}
+  chainSkillRange: {fileID: 1319619788460228979, guid: 45b3e0a3a2255644598dcab8293d2cbc, type: 3}
   sword: {fileID: 2205257296409096499, guid: 65c0199cd5b671c4db07a5884a14eb9d, type: 3}
   swordGate: {fileID: 981359546583017129, guid: a42db839447a7a845bd9912420b4fc36, type: 3}
   light: {fileID: 4062427478750402446, guid: a18c6f2cee487ec4fa3a000f25b99dc6, type: 3}
