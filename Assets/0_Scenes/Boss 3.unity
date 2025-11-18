@@ -223,12 +223,7 @@ MonoBehaviour:
   target: {fileID: 1826793348}
   Flooring: {fileID: 2084633151}
   isTrigger: 0
-  portal:
-  - {fileID: 190804560}
-  - {fileID: 194200210}
-  - {fileID: 505412711}
-  - {fileID: 1270951393}
-  - {fileID: 1361428801}
+  portal: {fileID: 0}
 --- !u!61 &13093958
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1229,12 +1224,7 @@ MonoBehaviour:
   target: {fileID: 1826793348}
   Flooring: {fileID: 2084633151}
   isTrigger: 0
-  portal:
-  - {fileID: 190804560}
-  - {fileID: 194200210}
-  - {fileID: 505412711}
-  - {fileID: 1270951393}
-  - {fileID: 1361428801}
+  portal: {fileID: 0}
 --- !u!61 &323398597
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1408,11 +1398,11 @@ Transform:
   m_GameObject: {fileID: 415955601}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1484, y: -0.0922, z: 10}
-  m_LocalScale: {x: 4.828518, y: 2.714157, z: 1}
+  m_LocalPosition: {x: -0.1484, y: 12.9, z: 0}
+  m_LocalScale: {x: 10, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 519420032}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &415955603
 SpriteRenderer:
@@ -1459,10 +1449,10 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 10.24, y: 10.24}
+  m_DrawMode: 2
+  m_Size: {x: 15, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
+  m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
@@ -1796,8 +1786,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 415955602}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
@@ -2767,12 +2756,7 @@ MonoBehaviour:
   target: {fileID: 1826793348}
   Flooring: {fileID: 2084633151}
   isTrigger: 0
-  portal:
-  - {fileID: 190804560}
-  - {fileID: 194200210}
-  - {fileID: 505412711}
-  - {fileID: 1270951393}
-  - {fileID: 1361428801}
+  portal: {fileID: 0}
 --- !u!61 &1330972030
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3533,12 +3517,7 @@ MonoBehaviour:
   target: {fileID: 1826793348}
   Flooring: {fileID: 2084633151}
   isTrigger: 0
-  portal:
-  - {fileID: 190804560}
-  - {fileID: 194200210}
-  - {fileID: 505412711}
-  - {fileID: 1270951393}
-  - {fileID: 1361428801}
+  portal: {fileID: 0}
 --- !u!61 &1777051638
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4421,12 +4400,7 @@ MonoBehaviour:
   target: {fileID: 1826793348}
   Flooring: {fileID: 2084633151}
   isTrigger: 0
-  portal:
-  - {fileID: 190804560}
-  - {fileID: 194200210}
-  - {fileID: 505412711}
-  - {fileID: 1270951393}
-  - {fileID: 1361428801}
+  portal: {fileID: 0}
 --- !u!61 &1939698512
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4937,7 +4911,9 @@ MonoBehaviour:
   - {fileID: 13093957}
   - {fileID: 1939698511}
   - {fileID: 323398596}
+  isCheck: 0
   isStay: 0
+  canShrinkChain: 0
 --- !u!114 &2084633153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5381,6 +5357,7 @@ BoxCollider2D:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 415955602}
   - {fileID: 519420032}
   - {fileID: 589997537}
   - {fileID: 2115988723}
