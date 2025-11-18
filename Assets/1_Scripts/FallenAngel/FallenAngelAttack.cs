@@ -27,13 +27,13 @@ public class FallenAngelAttack : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FirstPattern());
+        //StartCoroutine(FirstPattern());
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            ChainAttack();
+            StartCoroutine(ChainAttack());
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
