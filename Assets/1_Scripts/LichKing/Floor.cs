@@ -19,7 +19,6 @@ public class Floor : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         cor = GetComponent<Collider2D>();
         chainCollider = new Collider2D[chain.Length];
-        targetPos = target.transform.position;
         for (int i = 0; i < chain.Length; i++)
         {
             chainCollider[i] = chain[i].GetComponent<Collider2D>();
@@ -42,7 +41,8 @@ public class Floor : MonoBehaviour
                 Debug.Log("Shrink Chain");
                 canShrinkChain = false;
                 StartCoroutine( ShrinkChain());
-                targetPos = new Vector3(transform.position.x, targetPos.y, targetPos.z);
+                targetPos = new Vector3(transform.position.x, -3f, targetPos.z);
+                target.transform.position = targetPos;
                 target.GetComponent<PlayerMove>().moveSpeed = 7f;
                 target.GetComponent<PlayerMove>().JumpPower = 5;
                 target.GetComponent<PlayerMove>().DashForce = 5;

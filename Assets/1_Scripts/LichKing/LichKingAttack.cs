@@ -27,7 +27,9 @@ public class LichKingAttack : MonoBehaviour
     
     Animator anim;
 
-    private IEnumerator cor = null; 
+    private IEnumerator cor = null;
+
+    public GameObject[] ghoulObj;
 
     void Awake()
     {
@@ -42,7 +44,6 @@ public class LichKingAttack : MonoBehaviour
             chainCollider[i] = chain[i].GetComponent<Collider2D>();
             ChainScript[i] = chain[i].GetComponent<Chain>();
         }
-        
     }
 
     private void Start()
@@ -71,16 +72,16 @@ public class LichKingAttack : MonoBehaviour
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(0, 3);
+        int pettenSycle = Random.Range(2, 3);
         while (true)
         {
             if (cor == null)
             {
 
                 
-                while (pettenSycle == lastPettenSycle)
+                //while (pettenSycle == lastPettenSycle)
                 {
-                    pettenSycle = Random.Range(0, 3);
+                   // pettenSycle = Random.Range(0, 3);
                 }
 
                 
@@ -499,6 +500,15 @@ IEnumerator Chain()
     cor = null;
 }
 
+IEnumerator Ghoul()
+{
+    foreach (GameObject a in ghoulObj)
+    {
+        a.SetActive(true);
+    }
+        yield return new WaitForSeconds(3f);
+        cor = null;
+}
 
 
 
