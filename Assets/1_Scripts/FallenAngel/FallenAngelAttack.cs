@@ -12,8 +12,10 @@ public class FallenAngelAttack : MonoBehaviour
     public GameObject chain;
     public GameObject chainSkillRange;
 
-    public GameObject sword;
-    public GameObject swordGate;
+    public GameObject lightSword;
+    public GameObject lightSwordGate;
+    public GameObject darkSword;
+    public GameObject darkSwordGate;
 
     public GameObject light;
     public GameObject lightSkillRange;
@@ -35,11 +37,15 @@ public class FallenAngelAttack : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            StartCoroutine(SwordAttack());
+            StartCoroutine(LightSwordAttack());
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
             StartCoroutine(LightAttack());
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            StartCoroutine(DarkSwordAttack());
         }
     }
 
@@ -62,13 +68,21 @@ public class FallenAngelAttack : MonoBehaviour
         Destroy(chainRight );
     }
 
-    IEnumerator SwordAttack()
+    IEnumerator LightSwordAttack()
     {
-        var firstGate = Instantiate(swordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y, 0), Quaternion.identity);
+        var firstGate = Instantiate(lightSwordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y, 0), Quaternion.identity);
         yield return new WaitForSeconds(0.5f);
-        var secondGate = Instantiate(swordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 3, 0), Quaternion.identity);
+        var secondGate = Instantiate(lightSwordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 3, 0), Quaternion.identity);
         yield return new WaitForSeconds(0.5f);
-        var thirdGate = Instantiate(swordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 6, 0), Quaternion.identity);
+        var thirdGate = Instantiate(lightSwordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 6, 0), Quaternion.identity);
+    }
+    IEnumerator DarkSwordAttack()
+    {
+        var firstGate = Instantiate(darkSwordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y, 0), Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
+        var secondGate = Instantiate(darkSwordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 3, 0), Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
+        var thirdGate = Instantiate(darkSwordGate, new Vector3(this.transform.position.x - 7, player.transform.position.y + 6, 0), Quaternion.identity);
     }
     IEnumerator LightAttack()
     {
@@ -90,18 +104,18 @@ public class FallenAngelAttack : MonoBehaviour
             switch (value)
             {
                 case 0:
-                    StartCoroutine(SwordAttack());
+                    StartCoroutine(LightSwordAttack());
                     yield return new WaitForSeconds(2f);
                     break;
                 case 1:
                     StartCoroutine(ChainAttack());
-                    StartCoroutine(SwordAttack());
+                    StartCoroutine(LightSwordAttack());
                     yield return new WaitForSeconds(2f);
                     break;
                 case 2:
-                    StartCoroutine (SwordAttack());
+                    StartCoroutine (LightSwordAttack());
                     yield return new WaitForSeconds (2f);
-                    StartCoroutine(SwordAttack());
+                    StartCoroutine(LightSwordAttack());
                     yield return new WaitForSeconds(2f);
                     break;
                 case 3:
@@ -118,7 +132,7 @@ public class FallenAngelAttack : MonoBehaviour
                     yield return new WaitForSeconds(2f);
                     break;
                 case 5:
-                    StartCoroutine(SwordAttack());
+                    StartCoroutine(LightSwordAttack());
                     yield return new WaitForSeconds(2f);
                     StartCoroutine(ChainAttack());
                     StartCoroutine (LightAttack());
