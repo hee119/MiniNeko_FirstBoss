@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SkillTreeManager : MonoBehaviour
 {
+    public static SkillTreeManager Instance;
     [SerializeField]
     public RectTransform contentRoot;
     public GameObject nodePrefab;
@@ -16,6 +17,18 @@ public class SkillTreeManager : MonoBehaviour
 
     public List<SkillData> nextSkills = new List<SkillData>();
 
+    private void Awake()
+    {
+        if (!Instance)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         BuildTreeRecursive(rootSkill, Vector2.zero, 250f, 0);
