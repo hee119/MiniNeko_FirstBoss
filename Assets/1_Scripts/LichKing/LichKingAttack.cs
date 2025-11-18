@@ -72,7 +72,7 @@ public class LichKingAttack : MonoBehaviour
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(2, 3);
+        int pettenSycle = Random.Range(3, 4);
         while (true)
         {
             if (cor == null)
@@ -109,7 +109,10 @@ public class LichKingAttack : MonoBehaviour
                             yield return cor;
                             break;
                         case 3:
-
+                            cor = Ghoul();
+                            yield return cor;
+                            break;
+                        case 4:
                             break;
                     }
                 }

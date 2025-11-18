@@ -13,6 +13,7 @@ public class ghoul : MonoBehaviour
     private SpriteRenderer sr;
     Animator anim;
     bool isAttacking = false;
+    public GameObject[] otherG;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,8 +31,7 @@ public class ghoul : MonoBehaviour
     void Update()
     {
         myDir = targetDir.transform.position - transform.position;
-        dir = myDir.normalized;
-        rb.velocity = new Vector2(dir.x * 7f, 0);
+        
         if (targetDir.transform.position.x > transform.position.x)
         {
             sr.flipX = false;
@@ -41,5 +41,13 @@ public class ghoul : MonoBehaviour
             sr.flipX = true;
         }
 
+        foreach (GameObject g in otherG)
+        {
+            if (g.transform.position.x == transform.position.x)
+            {
+                dir = myDir.normalized;
+                rb.velocity = new Vector2(dir.x * 7f, 0);
+            }
+        }
     }
 }
