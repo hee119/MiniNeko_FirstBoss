@@ -5394,6 +5394,7 @@ GameObject:
   - component: {fileID: 8068589429916244329}
   - component: {fileID: 8068589429916244330}
   - component: {fileID: 8068589429916244334}
+  - component: {fileID: 8068589429916244333}
   m_Layer: 7
   m_Name: Green Idle
   m_TagString: Untagged
