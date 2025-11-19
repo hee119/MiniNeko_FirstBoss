@@ -3409,7 +3409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 20
   Type: Stay
-  invisibleTime: 0.01
+  invisibleTime: 0.03
 --- !u!1 &1591815445
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,7 +4261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 20
   Type: Stay
-  invisibleTime: 0.01
+  invisibleTime: 0.03
 --- !u!1 &1853631293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4407,7 +4407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 20
   Type: Stay
-  invisibleTime: 0.01
+  invisibleTime: 0.03
 --- !u!1 &1939698508
 GameObject:
   m_ObjectHideFlags: 0
@@ -4834,7 +4834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 20
   Type: Stay
-  invisibleTime: 0.01
+  invisibleTime: 0.03
 --- !u!1 &2084465415
 GameObject:
   m_ObjectHideFlags: 0
@@ -5037,7 +5037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 10
   Type: Enter
-  invisibleTime: 0.01
+  invisibleTime: 0.03
 --- !u!61 &2084633154
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5394,7 +5394,6 @@ GameObject:
   - component: {fileID: 8068589429916244329}
   - component: {fileID: 8068589429916244330}
   - component: {fileID: 8068589429916244334}
-  - component: {fileID: 8068589429916244333}
   m_Layer: 7
   m_Name: Green Idle
   m_TagString: Untagged
@@ -5402,21 +5401,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8068589429916244333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8068589429916244332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Type: Stay
-  invisibleTime: 0.01
 --- !u!61 &8068589429916244334
 BoxCollider2D:
   m_ObjectHideFlags: 0
