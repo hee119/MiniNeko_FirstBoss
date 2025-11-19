@@ -3409,6 +3409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 20
   Type: Stay
+  invisibleTime: 0.03
 --- !u!1 &1591815445
 GameObject:
   m_ObjectHideFlags: 0
@@ -3864,11 +3865,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17233f96396d41e0a77825ad4ea6350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHP: 100000
-  playerHP: 100
-  HPBar: {fileID: 115238414}
-  HealthText: {fileID: 516334749}
-  DiedUI: {fileID: 367699701}
+  maxHp: 10000
+  hpBar: {fileID: 115238415}
+  healthText: {fileID: 516334749}
+  diedUI: {fileID: 367699701}
+  invisibleTime: 0
+  DamageText: {fileID: 1487416769882642056, guid: edcc3b94bf3614596a7771fbbd9d73d4, type: 3}
+  CameraCanvas: {fileID: 7183246942121871575, guid: 491c4a248d2d34bd8bfe8d383d6774dc, type: 3}
 --- !u!95 &1826793356
 Animator:
   serializedVersion: 5
@@ -4257,6 +4260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 20
   Type: Stay
+  invisibleTime: 0.03
 --- !u!1 &1853631293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4402,6 +4406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 20
   Type: Stay
+  invisibleTime: 0.03
 --- !u!1 &1939698508
 GameObject:
   m_ObjectHideFlags: 0
@@ -4829,6 +4834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 20
   Type: Stay
+  invisibleTime: 0.03
 --- !u!1 &2084465415
 GameObject:
   m_ObjectHideFlags: 0
@@ -5029,6 +5035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
   Damage: 10
   Type: Enter
+  invisibleTime: 0.03
 --- !u!61 &2084633154
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5385,7 +5392,6 @@ GameObject:
   - component: {fileID: 8068589429916244329}
   - component: {fileID: 8068589429916244330}
   - component: {fileID: 8068589429916244334}
-  - component: {fileID: 8068589429916244333}
   m_Layer: 7
   m_Name: Green Idle
   m_TagString: Untagged
@@ -5393,20 +5399,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8068589429916244333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8068589429916244332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 1
-  Type: Stay
 --- !u!61 &8068589429916244334
 BoxCollider2D:
   m_ObjectHideFlags: 0
