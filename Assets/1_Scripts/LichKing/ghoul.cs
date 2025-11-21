@@ -13,7 +13,6 @@ public class ghoul : MonoBehaviour
     private SpriteRenderer sr;
     Animator anim;
     bool isAttacking = false;
-    public GameObject[] otherG;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,8 +22,8 @@ public class ghoul : MonoBehaviour
 
     private void OnEnable()
     {
-        float ranPos = Random.Range(-1f, 1f);
-        transform.position = new Vector3(ranPos, -2f, 0);
+        int ranPos = Random.Range(-5, 5);
+        transform.localPosition = new Vector3(ranPos, -0.4f, 0);
     }
 
     // Update is called once per frame
@@ -33,13 +32,7 @@ public class ghoul : MonoBehaviour
         myDir = targetDir.transform.position - transform.position;
         dir = myDir.normalized;
         rb.velocity = new Vector2(dir.x * 7f, 0);
-        if (targetDir.transform.position.x > transform.position.x)
-        {
-            sr.flipX = false;
-        }
-        else
-        {
-            sr.flipX = true;
-        }
+        sr.flipX = targetDir.transform.position.x <= transform.position.x;
+
     }
 }

@@ -30,6 +30,9 @@ public class LichKingAttack : MonoBehaviour
     private IEnumerator cor = null;
 
     public GameObject[] ghoulObj;
+    private EnemyHealthScript[] ghoulHp;
+
+    public GameObject[] voidBall;
 
     void Awake()
     {
@@ -39,10 +42,16 @@ public class LichKingAttack : MonoBehaviour
         anim = GetComponent<Animator>();
         chainCollider = new Collider2D[chain.Length];
         ChainScript = new Chain[chain.Length];
+        ghoulHp = new EnemyHealthScript[ghoulObj.Length];
         for (int i = 0; i < chain.Length; i++)
         {
             chainCollider[i] = chain[i].GetComponent<Collider2D>();
             ChainScript[i] = chain[i].GetComponent<Chain>();
+        }
+
+        for (int i = 0; i < ghoulObj.Length; i++)
+        {
+            ghoulHp[i] = ghoulObj[i].GetComponent<EnemyHealthScript>();
         }
     }
 
@@ -72,7 +81,7 @@ public class LichKingAttack : MonoBehaviour
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(3, 4);
+        int pettenSycle = Random.Range(4, 5);
         while (true)
         {
             if (cor == null)
@@ -113,6 +122,8 @@ public class LichKingAttack : MonoBehaviour
                             yield return cor;
                             break;
                         case 4:
+                            cor = VoidBall();
+                            yield return cor;
                             break;
                     }
                 }
@@ -505,14 +516,21 @@ IEnumerator Chain()
 
 IEnumerator Ghoul()
 {
-    foreach (GameObject a in ghoulObj)
+    for (int i = 0; i < ghoulObj.Length; i++)
     {
-        a.SetActive(true);
+        ghoulHp[i].StartHealth = 10;
+        ghoulHp[i].Health = 10;
+        ghoulObj[i].SetActive(true);
     }
         yield return new WaitForSeconds(3f);
         cor = null;
 }
 
+IEnumerator VoidBall()
+{
+    
+    yield return null;
+}
 
 
 
