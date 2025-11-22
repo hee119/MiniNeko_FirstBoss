@@ -28,11 +28,11 @@ public class Chain : MonoBehaviour
         }
         if (transform.localScale.y > 0)
         {
-                portal.transform.localScale = new Vector2(0.1f, 0.1f);
+                portal.transform.localScale = new Vector3(0.1f, 0.1f, 1);
         }
         else
         {
-                portal.transform.localScale = new Vector2(0f, 0f);
+                portal.transform.localScale = new Vector3(0f, 0f, 1);
         }
     }
 

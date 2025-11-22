@@ -5,6 +5,7 @@ using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 public class LichKingAttack : MonoBehaviour
@@ -81,16 +82,16 @@ public class LichKingAttack : MonoBehaviour
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(3, 4);
+        int pettenSycle = Random.Range(4, 5);
         while (true)
         {
             if (cor == null)
             {
 
                 
-                //while (pettenSycle == lastPettenSycle)
+               // while (pettenSycle == lastPettenSycle)
                 {
-                   // pettenSycle = Random.Range(0, 3);
+                   pettenSycle = Random.Range(4, 5);
                 }
 
                 
@@ -528,10 +529,20 @@ IEnumerator Ghoul()
 
 IEnumerator VoidBall()
 {
-    
-    yield return null;
+    rb.velocity = Vector2.zero;
+    int i;
+    for (i = 0; i < voidBall.Length; i++)
+    {
+        voidBall[i].SetActive(true);
+        
+        yield return new WaitForSeconds(0.8f);
+    }
+
+    yield return new WaitForSeconds(8f);
+    rb.velocity = Vector2.one;
     cor = null;
 }
+
 
 
 
