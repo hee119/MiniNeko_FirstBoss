@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -22,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     public Collider2D colider2d;
     public GameObject atk;
     public Animator Anims;
+    public ParticleSystem DashParticle;
     double atkTime;
 
     public bool isStop = false;
@@ -52,6 +50,8 @@ public class PlayerMove : MonoBehaviour
             {
                 gameObject.GetComponent<PlayerHealth>().invisibleTime = Time.time + 0.1f;
                 isDashing = true;
+                if(DashParticle != null)
+                    DashParticle.Play();
                 Dashing = lastFace * DashForce;
             }
             if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
@@ -81,6 +81,8 @@ public class PlayerMove : MonoBehaviour
             Dashing /= 1.01f;
             if (Math.Abs(Dashing.x) <= 0.5f)
             {
+                if(DashParticle != null)
+                    DashParticle.Stop();
                 Debug.Log("Dash Charged");
                 sumdash = 0f;
                 Dashing = new Vector2(0, 0);
