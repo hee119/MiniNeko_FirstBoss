@@ -27,7 +27,12 @@ public class LichKingAttack : MonoBehaviour
     
     Animator anim;
 
-    private IEnumerator cor = null; 
+    private IEnumerator cor = null;
+
+    public GameObject[] ghoulObj;
+    private EnemyHealthScript[] ghoulHp;
+
+    public GameObject[] voidBall;
 
     void Awake()
     {
@@ -37,12 +42,17 @@ public class LichKingAttack : MonoBehaviour
         anim = GetComponent<Animator>();
         chainCollider = new Collider2D[chain.Length];
         ChainScript = new Chain[chain.Length];
+        ghoulHp = new EnemyHealthScript[ghoulObj.Length];
         for (int i = 0; i < chain.Length; i++)
         {
             chainCollider[i] = chain[i].GetComponent<Collider2D>();
             ChainScript[i] = chain[i].GetComponent<Chain>();
         }
-        
+
+        for (int i = 0; i < ghoulObj.Length; i++)
+        {
+            ghoulHp[i] = ghoulObj[i].GetComponent<EnemyHealthScript>();
+        }
     }
 
     private void Start()
@@ -71,16 +81,16 @@ public class LichKingAttack : MonoBehaviour
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(0, 3);
+        int pettenSycle = Random.Range(3, 4);
         while (true)
         {
             if (cor == null)
             {
 
                 
-                while (pettenSycle == lastPettenSycle)
+                //while (pettenSycle == lastPettenSycle)
                 {
-                    pettenSycle = Random.Range(0, 3);
+                   // pettenSycle = Random.Range(0, 3);
                 }
 
                 
@@ -108,7 +118,12 @@ public class LichKingAttack : MonoBehaviour
                             yield return cor;
                             break;
                         case 3:
-
+                            cor = Ghoul();
+                            yield return cor;
+                            break;
+                        case 4:
+                            cor = VoidBall();
+                            yield return cor;
                             break;
                     }
                 }
@@ -499,7 +514,24 @@ IEnumerator Chain()
     cor = null;
 }
 
+IEnumerator Ghoul()
+{
+    for (int i = 0; i < ghoulObj.Length; i++)
+    {
+        ghoulHp[i].StartHealth = 10;
+        ghoulHp[i].Health = 10;
+        ghoulObj[i].SetActive(true);
+    }
+        yield return new WaitForSeconds(3f);
+        cor = null;
+}
 
+IEnumerator VoidBall()
+{
+    
+    yield return null;
+    cor = null;
+}
 
 
 

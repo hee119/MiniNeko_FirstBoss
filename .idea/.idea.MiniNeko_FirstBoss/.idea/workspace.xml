@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a9003a7-ff6f-4f2d-b96c-826e395cf81d" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs" afterDir="false" />
-    </list>
+    <list default="true" id="5a9003a7-ff6f-4f2d-b96c-826e395cf81d" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +15,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/1_Scripts/LichKing/LichKingAttack.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@f250afc9b68d/Runtime/TMP/TMP_PackageResourceImporter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/1_Scripts/LichKing/ghoul.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/1_Scripts/LichKing/Chain.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/1_Scripts/LichKing/Floor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/1_Scripts/LichKing/LichKingAttack.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -32,7 +33,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;shibal&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;hee119-aa&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -103,7 +104,16 @@
       <workItem from="1762475783828" duration="14627000" />
       <workItem from="1762694082517" duration="16073000" />
       <workItem from="1762921372497" duration="15231000" />
-      <workItem from="1763039890075" duration="25481000" />
+      <workItem from="1763039890075" duration="46330000" />
+      <workItem from="1762773531528" duration="4000" />
+      <workItem from="1762773542037" duration="35000" />
+      <workItem from="1762773666858" duration="7000" />
+      <workItem from="1762839572771" duration="4000" />
+      <workItem from="1762839669660" duration="79000" />
+      <workItem from="1762840072191" duration="127000" />
+      <workItem from="1763538065416" duration="90000" />
+      <workItem from="1763542965698" duration="585000" />
+      <workItem from="1763548716975" duration="859000" />
     </task>
     <servers />
   </component>
