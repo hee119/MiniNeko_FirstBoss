@@ -82,16 +82,16 @@ public class LichKingAttack : MonoBehaviour
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(4, 5);
+        int pettenSycle = Random.Range(0, 5);
         while (true)
         {
             if (cor == null)
             {
 
                 
-               // while (pettenSycle == lastPettenSycle)
+                while (pettenSycle == lastPettenSycle)
                 {
-                   pettenSycle = Random.Range(4, 5);
+                   pettenSycle = Random.Range(0, 5);
                 }
 
                 
@@ -535,7 +535,7 @@ IEnumerator VoidBall()
     {
         voidBall[i].SetActive(true);
         
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.5f);
     }
 
     yield return new WaitForSeconds(8f);
