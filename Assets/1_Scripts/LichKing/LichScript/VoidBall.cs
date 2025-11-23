@@ -19,7 +19,7 @@ public class VoidBall : MonoBehaviour
     IEnumerator VoidMove (float angle)
     {
         transform.rotation = Quaternion.Euler(0, 0, angle);
-        while (Mathf.Abs(transform.position.x) < 60)
+        while (Mathf.Abs(transform.position.x) < 100)
         {
             transform.position += transform.right * Time.deltaTime * 20;        
             yield return null;
@@ -39,7 +39,7 @@ public class VoidBall : MonoBehaviour
 
     IEnumerator LightUp()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         material.color = new Color(1, 1, 1, 1f);
     }
 }
