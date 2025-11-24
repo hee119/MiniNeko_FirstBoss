@@ -68,6 +68,12 @@ public class LichKingAttack : MonoBehaviour
 
     private void Update()
     {
+        if (LichHp.Health < 30 && !page2)
+        {
+            page2 = true;
+            StopAllCoroutines();
+            StartCoroutine(BossHp());
+        }
         if (isCrecked)
             return;
         if (transform.transform.position.x > Target.transform.position.x && !isSkill)
@@ -81,14 +87,6 @@ public class LichKingAttack : MonoBehaviour
             flipx.x = -Mathf.Abs(flipx.x);
             transform.localScale = flipx;
             rb.velocity = Vector2.right * 0.7f * Math.Abs(transform.transform.position.x - Target.transform.position.x);
-        }
-
-        if (LichHp.Health < 30 && !page2)
-        {
-            page2 = true;
-            StopCoroutine(cor);
-            StopCoroutine(BossAttackLoop());
-            StartCoroutine(BossHp());
         }
     }
 
@@ -129,6 +127,7 @@ public class LichKingAttack : MonoBehaviour
                     {
                         pettenSycle = Random.Range(0, 5);
                     }
+                    lastPettenSycle = pettenSycle;
                     switch (pettenSycle)
                     {
                         case 2:
@@ -571,7 +570,7 @@ IEnumerator CrackScaleUp()
 
 IEnumerator BossHp()
 {
-    
+    cor = null;
     while (LichHp.Health < 1000)
     {
         playerMove.isStop = true;
@@ -584,8 +583,7 @@ IEnumerator BossHp()
     {
         rb.velocity = Vector2.one;
         playerMove.isStop = false;
-        cor = null;
-        yield return BossAttackLoop();
+        StartCoroutine(BossAttackLoop());
     }
 }
 }
