@@ -13,12 +13,15 @@ public class Floor : MonoBehaviour
     public bool canShrinkChain;
     private Collider2D[] chainCollider;
     private Vector3 targetPos;
-
+    private PlayerMove playerMove;
+    public PlayerHealth playerHealth;
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         cor = GetComponent<Collider2D>();
         chainCollider = new Collider2D[chain.Length];
+        playerMove = target.GetComponent<PlayerMove>();
+        playerHealth = target.GetComponent<PlayerHealth>();
         for (int i = 0; i < chain.Length; i++)
         {
             chainCollider[i] = chain[i].GetComponent<Collider2D>();
@@ -27,14 +30,23 @@ public class Floor : MonoBehaviour
         sr.enabled = false;
         cor.enabled = false;
     }
-    
-    private void OnTriggerStay2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            playerHealth.setmvs(playerHealth.getmvs() * 0.8f);    
+        playerMove.JumpPower = 0;
+        playerMove.DashForce = 0;
+        isStay = true;
+        }
+}
+
+private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            target.GetComponent<PlayerMove>().moveSpeed *= 0.5f;
-            target.GetComponent<PlayerMove>().JumpPower = 0;
-            target.GetComponent<PlayerMove>().DashForce = 0;
+            
             t += Time.deltaTime;
             if (t >= 2.5f && canShrinkChain)
             {
@@ -43,18 +55,16 @@ public class Floor : MonoBehaviour
                 StartCoroutine( ShrinkChain());
                 targetPos = new Vector3(transform.position.x, -3f, targetPos.z);
                 target.transform.position = targetPos;
-                target.GetComponent<PlayerMove>().moveSpeed = 7f;
-                target.GetComponent<PlayerMove>().JumpPower = 5;
-                target.GetComponent<PlayerMove>().DashForce = 5;
+                playerMove.moveSpeed = 7f;
+                playerMove.JumpPower = 5;
+                playerMove.DashForce = 5;
             }
         }
     }
     public IEnumerator LocalScale()
     {
-        if(isStay) yield break;
-        
+        if(isCheck) yield break;
         canShrinkChain = true;
-        isStay = true;
         isCheck = true;
         float t = 0;
         if (!sr.enabled && !cor.enabled)
@@ -69,15 +79,21 @@ public class Floor : MonoBehaviour
                         yield return null;
                     }
         }
+        yield return new WaitForSeconds(0.3f);
+        if (!isStay)
+        {
+            StartCoroutine( ShrinkChain());
+            StartCoroutine( ReduceFloor());
+        }
     }
     private void OnTriggerExit2D(Collider2D a)
     {
         if (a.CompareTag("Player") && canShrinkChain)
         {
             canShrinkChain = false;
-            target.GetComponent<PlayerMove>().moveSpeed = 7f;
-            target.GetComponent<PlayerMove>().JumpPower = 5;
-            target.GetComponent<PlayerMove>().DashForce = 5;
+            playerHealth.setmvs(7);    
+            playerMove.JumpPower = 5;
+            playerMove.DashForce = 5;
             StartCoroutine( ShrinkChain());
             StartCoroutine( ReduceFloor());
         }
@@ -136,6 +152,7 @@ public class Floor : MonoBehaviour
                 _chain.isTrigger = false;
             }
         }
+        playerHealth.setmvs(7);    
     }
 
     IEnumerator ReduceFloor()
@@ -147,5 +164,7 @@ public class Floor : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
+        sr.enabled = false;
+        cor.enabled = false;
     }
 }

@@ -12,6 +12,8 @@ public class Chain : MonoBehaviour
     private Vector2 a;
     private Collider2D col;
     private float t;
+    private PlayerHealth playerHealth;
+    private PlayerMove playerMove;
 
     void Awake()
     {
@@ -20,6 +22,8 @@ public class Chain : MonoBehaviour
         floor = Flooring.GetComponent<Floor>();
         col = GetComponent<Collider2D>();
         portal.transform.localScale = Vector3.zero;
+        playerHealth = target.GetComponent<PlayerHealth>();
+        playerMove = target.GetComponent<PlayerMove>();
     }
     private void Update()
     {
@@ -51,8 +55,11 @@ public class Chain : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !floor.isStay)
+        {
             StartCoroutine(floor.LocalScale());
-        
+            playerHealth.setmvs(playerHealth.getmvs() * 0.9f);
+        }
+
         if (collision.CompareTag("Player") && floor.isCheck){
             isTrigger = true;
         col.enabled = false;

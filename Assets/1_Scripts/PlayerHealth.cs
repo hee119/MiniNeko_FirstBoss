@@ -89,4 +89,14 @@ public class PlayerHealth : MonoBehaviour
         gameObject.GetComponent<Transform>().Translate(lF * -nuckback * Time.deltaTime);
         nuckback *= 0.995f;
     }
+
+    public float getmvs()
+    {
+        return mvs;
+    }
+
+    public void setmvs(float value)
+    {
+        mvs = value;
+    }
 }
