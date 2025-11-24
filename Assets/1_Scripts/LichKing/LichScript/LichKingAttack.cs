@@ -15,9 +15,10 @@ public class LichKingAttack : MonoBehaviour
     Rigidbody2D rb;
     public Transform sword;
     public Transform crack;
+    public PlayerMove playerMove;
 
     public int speed;
-    bool page2 = true;
+    public bool page2;
     bool isCrecked;
     private bool isSkill;
     public Sprite[] Attack;
@@ -36,6 +37,8 @@ public class LichKingAttack : MonoBehaviour
 
     public GameObject[] voidBall;
 
+    private EnemyHealthScript LichHp;
+    
     void Awake()
     {
         flipx = transform.localScale;
@@ -45,6 +48,7 @@ public class LichKingAttack : MonoBehaviour
         chainCollider = new Collider2D[chain.Length];
         ChainScript = new Chain[chain.Length];
         ghoulHp = new EnemyHealthScript[ghoulObj.Length];
+        LichHp = GetComponent<EnemyHealthScript>();
         for (int i = 0; i < chain.Length; i++)
         {
             chainCollider[i] = chain[i].GetComponent<Collider2D>();
@@ -78,21 +82,30 @@ public class LichKingAttack : MonoBehaviour
             transform.localScale = flipx;
             rb.velocity = Vector2.right * 0.7f * Math.Abs(transform.transform.position.x - Target.transform.position.x);
         }
-            }
+
+        if (LichHp.Health < 30 && !page2)
+        {
+            page2 = true;
+            StopCoroutine(cor);
+            StopCoroutine(BossAttackLoop());
+            StartCoroutine(BossHp());
+        }
+    }
 
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(0, 5);
+        int pettenSycle = Random.Range(0, 2);
         while (true)
         {
             if (cor == null)
             {
 
                 
+                if(!page2)
                 while (pettenSycle == lastPettenSycle)
                 {
-                   pettenSycle = Random.Range(0, 5);
+                   pettenSycle = Random.Range(0, 2);
                 }
 
                 
@@ -112,7 +125,10 @@ public class LichKingAttack : MonoBehaviour
                 }
 
                 if (page2)
-                {
+                    while (pettenSycle == lastPettenSycle)
+                    {
+                        pettenSycle = Random.Range(0, 5);
+                    }
                     switch (pettenSycle)
                     {
                         case 2:
@@ -127,9 +143,9 @@ public class LichKingAttack : MonoBehaviour
                             cor = VoidBall();
                             yield return cor;
                             break;
-                    }
                 }
             }
+            yield return new WaitForSeconds(2f);
         }
     }
 
@@ -343,7 +359,7 @@ public class LichKingAttack : MonoBehaviour
         sword.transform.GetChild(1).gameObject.SetActive(false);
         sword.transform.GetChild(2).gameObject.SetActive(false);
         sword.transform.GetChild(3).gameObject.SetActive(true);
-
+        sword.transform.GetChild(3).gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
         switch (ran)
 {
     case 0:
@@ -550,6 +566,26 @@ IEnumerator CrackScaleUp()
         crack.transform.GetChild(0).localScale = new Vector3(Mathf.Lerp(crackScale.x, nextScale.x, time), crackScale.y, crackScale.z);
         time += Time.deltaTime * 4;
         yield return null;
+    }
+}
+
+IEnumerator BossHp()
+{
+    
+    while (LichHp.Health < 1000)
+    {
+        playerMove.isStop = true;
+        rb.velocity = Vector2.zero;
+        LichHp.Health += 5;
+        yield return null;
+    }
+
+    if (page2 && LichHp.Health > 999)
+    {
+        rb.velocity = Vector2.one;
+        playerMove.isStop = false;
+        cor = null;
+        yield return BossAttackLoop();
     }
 }
 }

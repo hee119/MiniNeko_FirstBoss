@@ -25,7 +25,7 @@ public class wall : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Boss") || other.gameObject.CompareTag("Sword"))
+        if (other.gameObject.CompareTag("Boss"))
         {
             rb.velocity = Vector2.zero;
             if(boss.transform.position.x > transform.position.x)
@@ -45,7 +45,7 @@ public class wall : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Boss") || other.gameObject.CompareTag("Sword"))
+        if (other.gameObject.CompareTag("Boss"))
         {
             rb.velocity = Vector2.one;
         }
