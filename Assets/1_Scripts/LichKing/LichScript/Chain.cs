@@ -12,6 +12,7 @@ public class Chain : MonoBehaviour
     private Vector2 a;
     private Collider2D col;
     private float t;
+    private PlayerHealth playerHealth;
 
     void Awake()
     {
@@ -20,6 +21,7 @@ public class Chain : MonoBehaviour
         floor = Flooring.GetComponent<Floor>();
         col = GetComponent<Collider2D>();
         portal.transform.localScale = Vector3.zero;
+        playerHealth = target.GetComponent<PlayerHealth>();
     }
     private void Update()
     {
@@ -61,6 +63,7 @@ public class Chain : MonoBehaviour
 }
     IEnumerator StretchRoutine()
     {
+        playerHealth.setmvs(playerHealth.getmvs() * 0.9f);    
         // 체인 늘리기
         yield return new WaitForSeconds(0.2f);
         while (floor.isStay)

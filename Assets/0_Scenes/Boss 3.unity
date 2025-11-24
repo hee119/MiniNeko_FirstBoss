@@ -2490,6 +2490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 536441770}
   - component: {fileID: 536441769}
+  - component: {fileID: 536441773}
   - component: {fileID: 536441771}
   - component: {fileID: 536441772}
   m_Layer: 0
@@ -2626,6 +2627,18 @@ MonoBehaviour:
   Damage: 40
   Type: Enter
   invisibleTime: 0.01
+--- !u!114 &536441773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536441768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efe503b0f3fd0450fb1f3649d007c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &589997534
 GameObject:
   m_ObjectHideFlags: 0
@@ -2940,6 +2953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 678405447}
   - component: {fileID: 678405450}
+  - component: {fileID: 678405451}
   - component: {fileID: 678405449}
   - component: {fileID: 678405448}
   m_Layer: 0
@@ -3076,6 +3090,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &678405451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678405446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efe503b0f3fd0450fb1f3649d007c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &796734920
 GameObject:
   m_ObjectHideFlags: 0
@@ -6440,6 +6466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1830352251}
   - component: {fileID: 1830352254}
+  - component: {fileID: 1830352255}
   - component: {fileID: 1830352253}
   - component: {fileID: 1830352252}
   m_Layer: 0
@@ -6576,6 +6603,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1830352255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830352250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efe503b0f3fd0450fb1f3649d007c9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1843842199
 GameObject:
   m_ObjectHideFlags: 0
@@ -7377,7 +7416,6 @@ GameObject:
   - component: {fileID: 2084465416}
   - component: {fileID: 2084465419}
   - component: {fileID: 2084465418}
-  - component: {fileID: 2084465417}
   m_Layer: 0
   m_Name: Sword 4
   m_TagString: Sword
@@ -7400,21 +7438,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 805538550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2084465417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084465415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AttackEffectScript
-  Damage: 40
-  Type: Enter
-  invisibleTime: 0.01
 --- !u!61 &2084465418
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7676,7 +7699,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4.9460926, z: 0}
-  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
