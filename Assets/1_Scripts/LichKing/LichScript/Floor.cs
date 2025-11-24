@@ -38,6 +38,7 @@ public class Floor : MonoBehaviour
             playerHealth.setmvs(playerHealth.getmvs() * 0.8f);    
         playerMove.JumpPower = 0;
         playerMove.DashForce = 0;
+        isStay = true;
         }
 }
 
@@ -62,10 +63,8 @@ private void OnTriggerStay2D(Collider2D other)
     }
     public IEnumerator LocalScale()
     {
-        if(isStay) yield break;
-        
+        if(isCheck) yield break;
         canShrinkChain = true;
-        isStay = true;
         isCheck = true;
         float t = 0;
         if (!sr.enabled && !cor.enabled)
@@ -79,6 +78,12 @@ private void OnTriggerStay2D(Collider2D other)
                         t += Time.deltaTime;
                         yield return null;
                     }
+        }
+        yield return new WaitForSeconds(0.3f);
+        if (!isStay)
+        {
+            StartCoroutine( ShrinkChain());
+            StartCoroutine( ReduceFloor());
         }
     }
     private void OnTriggerExit2D(Collider2D a)
