@@ -93,7 +93,7 @@ public class LichKingAttack : MonoBehaviour
     IEnumerator BossAttackLoop()
     {
         int lastPettenSycle = -1;
-        int pettenSycle = Random.Range(2, 3);
+        int pettenSycle = Random.Range(0, 2);
         while (true)
         {
             if (cor == null)
@@ -101,13 +101,10 @@ public class LichKingAttack : MonoBehaviour
 
                 
                 if(!page2)
-                //while (pettenSycle == lastPettenSycle)
+                while (pettenSycle == lastPettenSycle)
                 {
-                   pettenSycle = Random.Range(2, 3);
+                   pettenSycle = Random.Range(0, 2);
                 }
-
-                
-                
                 lastPettenSycle = pettenSycle; // 다음 회차를 위해 저장
                 switch (pettenSycle)
                 {
@@ -123,9 +120,9 @@ public class LichKingAttack : MonoBehaviour
                 }
 
                 if (page2)
-                    //while (pettenSycle == lastPettenSycle)
+                    while (pettenSycle == lastPettenSycle)
                     {
-                        pettenSycle = Random.Range(2, 3);
+                        pettenSycle = Random.Range(0, 5);
                     }
                     lastPettenSycle = pettenSycle;
                     switch (pettenSycle)
