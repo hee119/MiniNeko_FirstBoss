@@ -60,6 +60,7 @@ public class PlayerHealth : MonoBehaviour
             dmgText.transform.SetParent(CameraCanvas.transform);
             dmgText.GetComponent<DamageTextScript>().SetText(num);
             dmgText.transform.position = transform.position;
+            dmgText.transform.position = new Vector3(transform.position.x,transform.position.y-1,transform.position.z);
             Destroy(dmgText,0.5f);
         }
     }
@@ -69,15 +70,10 @@ public class PlayerHealth : MonoBehaviour
         healthText.text = $"{Math.Round(CurHp)}/{maxHp}";
         if (transform.position.y < -50)
         {
-            CurHp -= 10;
             transform.position = new Vector2(0, 10);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
+            Damage(100);
         }
-        if (transform.position.y < -50)
-        {
-            CurHp -= 10;
-            transform.position = new Vector2(0, 10);
-        }
-        knockback();
     }
     void knockback()
     {
