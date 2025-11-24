@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
+  Damage: 20
   Type: Enter
   invisibleTime: 0.03
 --- !u!1 &21709738
@@ -1285,7 +1285,7 @@ MonoBehaviour:
   crack: {fileID: 1637583164}
   playerMove: {fileID: 1869888377}
   speed: 300
-  page2: 0
+  page2: 1
   Attack:
   - {fileID: -1876575632989397844, guid: 403fd20c03d6449e8af0d04346350052, type: 3}
   - {fileID: 1259095790213493357, guid: 2dcc548dda1a5446aabe8cd26136c9a9, type: 3}
@@ -1541,7 +1541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
+  Damage: 20
   Type: Enter
   invisibleTime: 0.03
 --- !u!1 &363492033
@@ -2477,9 +2477,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97fb408be5be4dd58141460185b7ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraMode: 
   Target: {fileID: 1869888375}
   yValue: 3
   cameraSpeed: 5
+  ylimit: -5
 --- !u!1 &536441768
 GameObject:
   m_ObjectHideFlags: 0
@@ -5031,7 +5033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
+  Damage: 20
   Type: Enter
   invisibleTime: 0.03
 --- !u!1 &1361428801
@@ -6306,7 +6308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
+  Damage: 20
   Type: Enter
   invisibleTime: 0.03
 --- !u!1 &1779577527
@@ -6935,6 +6937,7 @@ MonoBehaviour:
   lastFace: {x: -1, y: 0}
   moveSpeed: 7
   DashForce: 5
+  dashCoolTime: 0.2
   JumpPower: 5
   GravityScale: 1
   colider2d: {fileID: 1843842201}
@@ -6942,6 +6945,7 @@ MonoBehaviour:
   Anims: {fileID: 0}
   DashParticle: {fileID: 0}
   isStop: 0
+  dashDuration: 0.15
 --- !u!114 &1869888378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7121,7 +7125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d57e7addb0504d7692f657d9bc1a178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
+  Damage: 20
   Type: Enter
   invisibleTime: 0.03
 --- !u!1 &1956701556
@@ -7577,6 +7581,7 @@ MonoBehaviour:
   isCheck: 0
   isStay: 0
   canShrinkChain: 0
+  playerHealth: {fileID: 0}
 --- !u!114 &2084633153
 MonoBehaviour:
   m_ObjectHideFlags: 0
