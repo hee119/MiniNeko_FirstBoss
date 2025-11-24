@@ -7,7 +7,9 @@ public class KeyBoardScript : MonoBehaviour
 {
     public KeyCode Key;
     public Sprite changeSprite;
+    public bool wasChanged = false;
     // Start is called before the first frame update
+    public static int changedKeys = 0;
     void Start()
     {
         
@@ -17,9 +19,12 @@ public class KeyBoardScript : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(Key))
-        {
+        {   
+            changedKeys += 1 - (wasChanged?1:0);
+            wasChanged = true;
             gameObject.GetComponent<Image>().sprite = changeSprite;
             return;
         } 
+        Debug.Log(changedKeys);
     }
 }

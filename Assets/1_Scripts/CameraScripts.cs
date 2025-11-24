@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ public class CameraScripts : MonoBehaviour
     public float yValue;
     public float cameraSpeed;
     public float ylimit = -5f;
+    float ShakeForce = 0f;
     void Update()
     {
         if(Target.transform.position.y > ylimit+yValue)
@@ -21,6 +22,18 @@ public class CameraScripts : MonoBehaviour
             transform.position = new Vector3(transform.position.x+(Target.position.x-transform.position.x)*Time.deltaTime/1.2f*cameraSpeed,
                                         transform.position.y+(ylimit+yValue-transform.position.y)*Time.deltaTime/1.2f*cameraSpeed,
                                         -10);
+        if(ShakeForce >= 0.01f)
+        {
+            float xdif = UnityEngine.Random.Range(-ShakeForce,ShakeForce);
+            float ydif = UnityEngine.Random.Range(-ShakeForce,ShakeForce);
+            transform.position = new Vector3(transform.position.x+(xdif*Time.deltaTime),transform.position.y+(ydif*Time.deltaTime),transform.position.z);
+            ShakeForce -= ShakeForce*5f*Time.deltaTime;
+        }     
         
+    }
+    public void CameraShake(float a)
+    {
+        Debug.Log("SHAKE");
+        ShakeForce = a;
     }
 }

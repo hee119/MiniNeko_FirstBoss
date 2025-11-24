@@ -769,9 +769,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97fb408be5be4dd58141460185b7ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraMode: 
   Target: {fileID: 1826793352}
   yValue: 3
   cameraSpeed: 5
+  ylimit: -5
 --- !u!1 &589997534
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,6 +2059,7 @@ GameObject:
   - component: {fileID: 1826793353}
   - component: {fileID: 1826793355}
   - component: {fileID: 1826793356}
+  - component: {fileID: 1826793357}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2190,14 +2193,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastFace: {x: -1, y: 0}
-  moveSpeed: 7
-  DashForce: 5
-  JumpPower: 5
-  GravityScale: 1
-  colider2d: {fileID: 1843842201}
+  moveSpeed: 14
+  DashForce: 100
+  dashCoolTime: 0.2
+  JumpPower: 100
+  GravityScale: 5
+  colider2d: {fileID: 1826793349}
   atk: {fileID: 7096505069737248528, guid: 8971ac57f21664aeca89b04c2f253109, type: 3}
   Anims: {fileID: 0}
+  DashParticle: {fileID: 0}
   isStop: 0
+  dashDuration: 0.15
 --- !u!50 &1826793354
 Rigidbody2D:
   serializedVersion: 4
@@ -2265,6 +2271,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1826793357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826793348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aafa9345795c433c83b1f696a1ef3f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastFace: {x: -1, y: 0}
+  moveSpeed: 14
+  DashForce: 100
+  dashCoolTime: 0.2
+  JumpPower: 100
+  GravityScale: 5
+  colider2d: {fileID: 0}
+  atk: {fileID: 7096505069737248528, guid: 8971ac57f21664aeca89b04c2f253109, type: 3}
+  Anims: {fileID: 0}
+  DashParticle: {fileID: 0}
+  isStop: 0
+  dashDuration: 0.15
 --- !u!1 &1843842199
 GameObject:
   m_ObjectHideFlags: 0

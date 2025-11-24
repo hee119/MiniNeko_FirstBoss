@@ -57,13 +57,13 @@ public class PlayerMove : MonoBehaviour
                 // Update에서는 키 입력만 확인하고 lastFace와 horizontalInput을 기반으로 상태만 업데이트합니다.
 
                 // --- 대쉬 입력 ---
-                if (Input.GetKeyDown(KeyCode.Q) && !isDashing)
+                if (Input.GetKeyDown(KeyCode.Q) && !isDashing && DashForce != 0f)
                 {
                     StartCoroutine(DashCoroutine());
                 }
 
                 // --- 점프 입력 ---
-                if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+                if (Input.GetKeyDown(KeyCode.Space) && !isJumping && JumpPower != 0f)
                 {
                     isJumping = true;
                     // AddForce를 사용해 원래의 점프 방식을 유지
