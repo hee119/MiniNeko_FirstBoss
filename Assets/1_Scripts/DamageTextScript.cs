@@ -10,6 +10,7 @@ public class DamageTextScript : MonoBehaviour
     RectTransform RTF;
     float GravityY,Speed;
     // Start is called before the first frame update
+    // commit test
     public void SetText(int Damage)
     {
         gameObject.GetComponent<TextMeshProUGUI>().SetText(Convert.ToString(Damage));
