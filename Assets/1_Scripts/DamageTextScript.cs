@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class DamageTextScript : MonoBehaviour
 {   
@@ -13,6 +14,10 @@ public class DamageTextScript : MonoBehaviour
     // commit test
     public void SetText(int Damage)
     {
+        if(Damage < 0){
+            GetComponent<TextMeshProUGUI>().color = new Color(0,0.8f,0);
+            Damage = Math.Abs(Damage);
+        }
         gameObject.GetComponent<TextMeshProUGUI>().SetText(Convert.ToString(Damage));
     }
     void Start()

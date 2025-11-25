@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,9 +13,22 @@ public class CameraScripts : MonoBehaviour
     public float cameraSpeed;
     public float ylimit = -5f;
     public float Size = 14f;
+    public GameObject Icon;
+    public Material material;
     float ShakeForce = 0f;
+    float debuffTime = 0f;
+    float originSize;
+    float originYv;
+    void Awake()
+    {
+        originSize = Size;
+        originYv = yValue;
+        Icon = Instantiate(Icon);
+        debuffTime = Time.time;
+    }
     void Update()
     {
+        
         if(Target.transform.position.y > ylimit+yValue)
             transform.position = new Vector3(transform.position.x+(Target.position.x-transform.position.x)*Time.deltaTime/1.2f*cameraSpeed,
                                         transform.position.y+((Target.position.y+yValue)-transform.position.y)*Time.deltaTime/1.2f*cameraSpeed,
@@ -31,10 +45,33 @@ public class CameraScripts : MonoBehaviour
             ShakeForce -= ShakeForce*5f*Time.deltaTime;
         }
         GetComponent<Camera>().orthographicSize = GetComponent<Camera>().orthographicSize+((Size-GetComponent<Camera>().orthographicSize)*Time.deltaTime*3f);
+        if(Time.time <= debuffTime){
+            Icon.GetComponentInChildren<TextMeshProUGUI>().text = Convert.ToString((int)(debuffTime-Time.time)+1);
+            Size = 10f;
+            yValue = 0;
+            material.color = new Color(0.2392f, 0.2392f, 0.2392f, 1f);
+            Icon.transform.parent = GameObject.FindWithTag("DebuffIcon").transform;
+
+        }else{
+            Size = originSize;
+            yValue = originYv;
+            material.color = new Color(1f, 1f, 1f, 1f);
+            Icon.transform.parent = transform;
+        }
     }
     public void CameraShake(float a)
     {
-        Debug.Log("SHAKE");
         ShakeForce = a;
+    }
+    public void Debuff(float times)
+    {   
+        if(debuffTime < Time.time)
+        {
+            debuffTime = Time.time + times;
+        }
+        else
+        {
+            debuffTime += times;
+        }
     }
 }

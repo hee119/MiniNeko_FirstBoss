@@ -8,12 +8,9 @@ public class PlayerSkillScript : MonoBehaviour
     public int AttackDamage = 20;
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log($"i attacked {col.transform.name}");
-        if(col.CompareTag("Boss")||col.CompareTag("DestoryableStructer")){
-            EnemyHealthScript? healthScript = col.gameObject.transform.GetComponent<EnemyHealthScript>();
-            if(healthScript != null){
-                healthScript.EnemyDamage(AttackDamage);
-            }
+        if(col.CompareTag("Boss")||col.CompareTag("DestoryableStructer")||col.CompareTag("Enemy")){
+            EnemyHealthScript healthScript = col.gameObject.transform.GetComponent<EnemyHealthScript>();
+            healthScript.EnemyDamage(AttackDamage);
         } 
     }
     // Update is called once per frame

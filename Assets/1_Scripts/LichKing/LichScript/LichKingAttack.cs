@@ -105,9 +105,6 @@ public class LichKingAttack : MonoBehaviour
                 {
                    pettenSycle = Random.Range(0, 2);
                 }
-
-                
-                
                 lastPettenSycle = pettenSycle; // 다음 회차를 위해 저장
                 switch (pettenSycle)
                 {

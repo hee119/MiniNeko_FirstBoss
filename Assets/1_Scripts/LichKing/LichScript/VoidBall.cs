@@ -7,11 +7,16 @@ using Random = UnityEngine.Random;
 public class VoidBall : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject target;
+    GameObject target;
     public Material material;
-    public GameObject Light;
+    void Awake()
+    {
+        if(target == null)
+            target = GameObject.FindWithTag("Player");
+    }
     void OnEnable()
     {
+        transform.position = GameObject.FindWithTag("Boss").transform.position;
         float angle = transform.position.x < target.transform.position.x
             ? Random.Range(-30f, 30f)
             : Random.Range(150f, 210f);
@@ -32,17 +37,8 @@ public class VoidBall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-        {
-            material.color = new Color(0.2392f, 0.2392f, 0.2392f, 1f);
-            Light.SetActive(true);
-            StartCoroutine(LightUp());
+        {   
+            GameObject.FindWithTag("MainCamera").GetComponent<CameraScripts>().Debuff(3f);
         }
-    }
-
-    IEnumerator LightUp()
-    {
-        yield return new WaitForSeconds(3);
-        Light.SetActive(false);
-        material.color = new Color(1, 1, 1, 1f);
     }
 }

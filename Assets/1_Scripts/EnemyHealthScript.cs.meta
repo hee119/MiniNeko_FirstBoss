@@ -3,7 +3,12 @@ guid: e1c2003b45da44bdea2dae0c2d2f60ad
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - HPBar: {instanceID: 0}
+  - HPBarEF: {instanceID: 0}
+  - HealthText: {instanceID: 0}
+  - HitSound: {instanceID: 0}
+  - DamageText: {fileID: 1487416769882642056, guid: 735c30487e8f64203b352027b5636a6a, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

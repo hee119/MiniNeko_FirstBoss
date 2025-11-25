@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,6 +17,7 @@ public class EnemyHealthScript : MonoBehaviour
     public RectTransform HPBarEF;
     public TextMeshProUGUI HealthText;
     public AudioSource HitSound;
+    public GameObject DamageText;
     void Start()
     {
         Health = StartHealth;
@@ -24,6 +26,14 @@ public class EnemyHealthScript : MonoBehaviour
     public void EnemyDamage(int Damage)
     {
         Health -= Damage;
+        if(DamageText != null){
+            GameObject dmgText = Instantiate(DamageText);
+            dmgText.transform.SetParent(GameObject.FindWithTag("FieldUI").transform);
+            dmgText.GetComponent<DamageTextScript>().SetText(Convert.ToInt32(Damage));
+            dmgText.transform.position = transform.position;
+            dmgText.transform.position = new Vector3(transform.position.x,transform.position.y-1,transform.position.z);
+            Destroy(dmgText,0.5f);
+        }
     }
     // Update is called once per frame
     void Update()

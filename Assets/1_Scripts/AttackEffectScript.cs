@@ -12,10 +12,8 @@ public class AttackEffectScript : MonoBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
         if(Type == "Stay"){
-            Debug.Log(collision.name);
             if (collision.CompareTag("Player"))
             {
-                Debug.Log("attack HIT");
                 collision.gameObject.GetComponent<PlayerHealth>().Damage(Damage,invisibleTime);
             }
         }
@@ -23,10 +21,8 @@ public class AttackEffectScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {   
         if(Type == "Enter" || Type == ""){
-            Debug.Log(collision.name);
             if (collision.CompareTag("Player"))
             {
-                Debug.Log("attack HIT");
                 collision.gameObject.GetComponent<PlayerHealth>().Damage(Damage,invisibleTime);
             }
         }

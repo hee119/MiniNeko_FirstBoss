@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Chain : MonoBehaviour
 {
-    public GameObject target;
+    GameObject target;
     public GameObject Flooring;
     private Floor floor;
     public bool isTrigger;
@@ -12,14 +12,19 @@ public class Chain : MonoBehaviour
     private Vector2 a;
     private Collider2D col;
     private float t;
+    private PlayerHealth playerHealth;
+    private PlayerMove playerMove;
 
     void Awake()
     {
+        target = GameObject.FindWithTag("Player");
         transform.localScale = Vector3.zero;
         a = GetComponent<BoxCollider2D>().offset;
         floor = Flooring.GetComponent<Floor>();
         col = GetComponent<Collider2D>();
         portal.transform.localScale = Vector3.zero;
+        playerHealth = target.GetComponent<PlayerHealth>();
+        playerMove = target.GetComponent<PlayerMove>();
     }
     private void Update()
     {
@@ -50,15 +55,20 @@ public class Chain : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && !floor.isStay)
-            StartCoroutine(floor.LocalScale());
-        
-        if (collision.CompareTag("Player") && floor.isCheck){
-            isTrigger = true;
-        col.enabled = false;
-        StartCoroutine(StretchRoutine());
+        if(collision.CompareTag("Player")){
+            Debuff();
+            if (!floor.isStay)
+            {
+                StartCoroutine(floor.LocalScale());
+            }
+
+            if (floor.isCheck){
+                isTrigger = true;
+                col.enabled = false;
+                StartCoroutine(StretchRoutine());
+            }
+        }
     }
-}
     IEnumerator StretchRoutine()
     {
         // 체인 늘리기
@@ -75,7 +85,11 @@ public class Chain : MonoBehaviour
             yield return null; // 매 프레임 갱신
         }
     }
-
-
-
+    IEnumerator Debuff()
+    {
+        Debug.Log("Test");
+        playerMove.moveSpeed -= 2f;
+        yield return new WaitForSeconds(3f);
+        playerMove.moveSpeed += 2f;
     }
+}

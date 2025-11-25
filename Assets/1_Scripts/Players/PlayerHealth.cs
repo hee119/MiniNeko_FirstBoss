@@ -25,7 +25,6 @@ public class PlayerHealth : MonoBehaviour
         set
         {
             float target = value;
-            Debug.Log(target);
             if (target >= maxHp){//over heal
                 _curHp = maxHp;
             }
@@ -38,13 +37,12 @@ public class PlayerHealth : MonoBehaviour
     }
     Vector2 lF;
     Vector2 StPos;
-    float mvs;
     void Start()
     {
         StPos = new Vector2(transform.position.x,transform.position.y);
+        _curHp = maxHp;
         CameraCanvas = Instantiate(CameraCanvas);
         invisibleTime = Time.time;
-        mvs = gameObject.GetComponent<PlayerMove>().moveSpeed;
     }
     
     public void Damage(int num,float addInv = 0.1f){
@@ -67,19 +65,5 @@ public class PlayerHealth : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = StPos;
             Damage(100);
         }
-    }
-    void knockback()
-    {
-        if (nuckback > 1f)
-        {
-            gameObject.GetComponent<PlayerMove>().moveSpeed = 0f;
-        }
-        else
-        {
-            gameObject.GetComponent<PlayerMove>().moveSpeed = mvs;
-        }
-
-        gameObject.GetComponent<Transform>().Translate(lF * -nuckback * Time.deltaTime);
-        nuckback *= 0.995f;
     }
 }

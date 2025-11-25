@@ -13,6 +13,9 @@ TagManager:
   - Boss
   - Sword
   - DestoryableStructer
+  - FieldUI
+  - Enemy
+  - DebuffIcon
   layers:
   - Default
   - TransparentFX

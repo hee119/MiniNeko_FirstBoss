@@ -12,6 +12,7 @@ public class ghoulAttacking : MonoBehaviour
 
     void Awake()
     {
+        if(targetDir == null){targetDir = GameObject.FindWithTag("Player");}
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
     }
