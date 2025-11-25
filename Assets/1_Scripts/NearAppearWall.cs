@@ -15,6 +15,8 @@ public class NearAppearWall : MonoBehaviour
     {
         Color startColor = GetComponent<SpriteRenderer>().color;
         WallColor = new Color(startColor.r,startColor.g,startColor.b);
+        if(Target == null)
+            Target = GameObject.FindWithTag("Player").transform;
     }
     // Update is called once per frame
     void Update()

@@ -11,25 +11,14 @@ using Unity.VisualScripting;
 public class PlayerHealth : MonoBehaviour
 {  
     public int maxHp;
-    private float _curHp;
-    float curPer = 0;
-    float targetPer = 1;
-    public Image hpBar;
-    public TextMeshProUGUI healthText;
-    public GameObject diedUI;
-    float nuckback = 0f;
+    public float _curHp;
     public float invisibleTime;
     public GameObject DamageText;
     public GameObject CameraCanvas;
-    Vector2 lF;
-    float mvs;
-    void Start()
-    {
-        CameraCanvas = Instantiate(CameraCanvas);
-        invisibleTime = Time.time;
-        CurHp = maxHp;
-        mvs = gameObject.GetComponent<PlayerMove>().moveSpeed;
-    }
+    
+    float curPer = 0;
+    float targetPer = 1;
+    float nuckback = 0f;
     public float CurHp
     {
         get { return _curHp;}
@@ -37,21 +26,27 @@ public class PlayerHealth : MonoBehaviour
         {
             float target = value;
             Debug.Log(target);
-            if (target >= maxHp)
+            if (target >= maxHp){//over heal
                 _curHp = maxHp;
-            else if (target <= 0)
-            {
+            }
+            else if (target <= 0){//died
                 _curHp = 0;
-                diedUI.SetActive(true);
             }
-            else
-            {
-                _curHp = value;
-            }
+            else{_curHp = value;}
             targetPer = _curHp / maxHp;
-            DOTween.To(() => curPer, x => curPer = x, targetPer, 0.5f).SetEase(Ease.OutQuad);
         }   
     }
+    Vector2 lF;
+    Vector2 StPos;
+    float mvs;
+    void Start()
+    {
+        StPos = new Vector2(transform.position.x,transform.position.y);
+        CameraCanvas = Instantiate(CameraCanvas);
+        invisibleTime = Time.time;
+        mvs = gameObject.GetComponent<PlayerMove>().moveSpeed;
+    }
+    
     public void Damage(int num,float addInv = 0.1f){
         if (invisibleTime < Time.time){
             CurHp -= num;
@@ -66,12 +61,10 @@ public class PlayerHealth : MonoBehaviour
     }
     void Update()
     {
-        hpBar.fillAmount = curPer;
-        healthText.text = $"{Math.Round(CurHp)}/{maxHp}";
         if (transform.position.y < -50)
         {
             // transform.position = new Vector2(0, );
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);
+            GetComponent<Rigidbody2D>().velocity = StPos;
             Damage(100);
         }
     }

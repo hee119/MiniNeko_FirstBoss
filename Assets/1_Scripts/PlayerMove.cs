@@ -1,4 +1,5 @@
 using System.Collections; // Coroutine 사용을 위해 추가
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -25,12 +26,16 @@ public class PlayerMove : MonoBehaviour
     // --- 대쉬 지속 시간 추가 (새로운 변수) ---
     public float dashDuration = 0.15f; // 대쉬가 지속될 시간
     
+    AudioSource jumpSound;
+    ParticleSystemRenderer PSR;
     void Start()
     {
         colider2d = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = GravityScale; // Rigidbody의 중력 스케일 적용
         atkTime = Time.time;
+        jumpSound = gameObject.GetComponent<AudioSource>();
+        PSR = gameObject.GetComponent<ParticleSystemRenderer>();
     }
 
     // Update is called once per frame
@@ -45,14 +50,23 @@ public class PlayerMove : MonoBehaviour
                 {
                     horizontalInput = -1f;
                     lastFace = Vector2.left;
+                    transform.rotation = new Quaternion(0f,180f,0f,0f);
+                    PSR.flip = new Vector3(1,0,0);
                 }
-                if (Input.GetKey(KeyCode.D))
+                else if (Input.GetKey(KeyCode.D))
                 {
                     horizontalInput = 1f;
                     lastFace = Vector2.right;
+                    transform.rotation = new Quaternion(0f,0f,0f,0f);
+                    PSR.flip = new Vector3(0,0,0);
                 }
                 // Anims 처리 (필요하다면 여기서)
-
+                if(horizontalInput != 0)
+                    Anims.SetBool("IsWalking",true);
+                else
+                {
+                    Anims.SetBool("IsWalking",false);
+                }
                 // FixedUpdate에서 Rigidbody.velocity를 설정하기 위해 입력값을 사용
                 // Update에서는 키 입력만 확인하고 lastFace와 horizontalInput을 기반으로 상태만 업데이트합니다.
 
@@ -65,6 +79,7 @@ public class PlayerMove : MonoBehaviour
                 // --- 점프 입력 ---
                 if (Input.GetKeyDown(KeyCode.Space) && !isJumping && JumpPower != 0f)
                 {
+                    jumpSound.Play();
                     isJumping = true;
                     // AddForce를 사용해 원래의 점프 방식을 유지
                     rb.AddForce(Vector2.up * JumpPower * 100); 

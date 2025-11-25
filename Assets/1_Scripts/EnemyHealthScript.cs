@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,18 +15,15 @@ public class EnemyHealthScript : MonoBehaviour
     public RectTransform HPBar;
     public RectTransform HPBarEF;
     public TextMeshProUGUI HealthText;
+    public AudioSource HitSound;
     void Start()
     {
         Health = StartHealth;
         BFH = Health;
     }
-    void OnTriggerEnter2D(Collider2D col)
+    public void EnemyDamage(int Damage)
     {
-        Debug.Log("hitt");
-        if (col.CompareTag("PlayerAttack")){
-            Health -= 20;
-            Debug.Log("HHiitt");
-        }
+        Health -= Damage;
     }
     // Update is called once per frame
     void Update()
@@ -35,7 +33,7 @@ public class EnemyHealthScript : MonoBehaviour
             Health -= 200;
             transform.position = new Vector3(0, 10, transform.position.z);
         }
-        if (isBoss){
+        if (isBoss && HealthText != null){
             if (BFH != Health){
                 lastchanged = Time.time;
                 BFH = Health;
@@ -53,7 +51,19 @@ public class EnemyHealthScript : MonoBehaviour
             }
             else{HPBarEF.localScale = new Vector3(HPBarEF.localScale.x + (HPBar.localScale.x - HPBarEF.localScale.x) * Time.deltaTime / 10, 1f, 1f);}
         }
-        if (Health <= 0){Health = 0; gameObject.SetActive(false); }
+        if (Health <= 0){
+            Health = 0;
+            if(gameObject.CompareTag("DestoryableStructer")){
+                Destroy(gameObject.GetComponent<Rigidbody2D>());
+                transform.Rotate(0f,0f,-90f);
+                transform.position = new Vector3(177f,-42f,2.5f);
+                GetComponentInChildren<ParticleSystem>().Play();
+                Destroy(GetComponent<EnemyHealthScript>());
+                enabled = false;
+            }else{
+                gameObject.SetActive(false);
+            }
+        }
 
     }
     

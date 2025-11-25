@@ -11,6 +11,7 @@ public class CameraScripts : MonoBehaviour
     public float yValue;
     public float cameraSpeed;
     public float ylimit = -5f;
+    public float Size = 14f;
     float ShakeForce = 0f;
     void Update()
     {
@@ -28,8 +29,8 @@ public class CameraScripts : MonoBehaviour
             float ydif = UnityEngine.Random.Range(-ShakeForce,ShakeForce);
             transform.position = new Vector3(transform.position.x+(xdif*Time.deltaTime),transform.position.y+(ydif*Time.deltaTime),transform.position.z);
             ShakeForce -= ShakeForce*5f*Time.deltaTime;
-        }     
-        
+        }
+        GetComponent<Camera>().orthographicSize = GetComponent<Camera>().orthographicSize+((Size-GetComponent<Camera>().orthographicSize)*Time.deltaTime*3f);
     }
     public void CameraShake(float a)
     {

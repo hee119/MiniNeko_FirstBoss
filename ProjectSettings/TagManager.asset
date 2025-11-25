@@ -12,6 +12,7 @@ TagManager:
   - Chain
   - Boss
   - Sword
+  - DestoryableStructer
   layers:
   - Default
   - TransparentFX

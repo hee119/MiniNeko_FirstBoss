@@ -13,8 +13,10 @@ public class TutorialManager : MonoBehaviour
     public void SetUiLevel(int a)
     {
         TutoUiAnim.SetInteger("Tutorial Level",a);
+        GameObject.FindWithTag("Player").GetComponent<PlayerMove>().JumpPower = (a >= 2 ? 100f : 0f);
         if(a == 2)
             DropStone();
+        
     }
     public void DropStone()
     {
@@ -24,6 +26,6 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         TutoUiAnim = gameObject.GetComponent<Animator>();
-        TutoUiAnim.SetInteger("Tutorial Level",1);
+        SetUiLevel(1);
     }
 }

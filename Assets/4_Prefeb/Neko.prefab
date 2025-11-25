@@ -64,7 +64,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.16931713, y: -1.4458909}
+  m_Offset: {x: 0.16931713, y: -1.4402544}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -75,7 +75,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3295567, y: 0.07771778}
+  m_Size: {x: 1.3295567, y: 0.066444874}
   m_EdgeRadius: 0
 --- !u!1 &8406327759789480898
 GameObject:
@@ -91,9 +91,11 @@ GameObject:
   - component: {fileID: 8021494150904712819}
   - component: {fileID: 1416125916398510285}
   - component: {fileID: 7176152049945748819}
+  - component: {fileID: 7925413559310152435}
   - component: {fileID: 1944840601330676073}
   - component: {fileID: 1441462519837241027}
   - component: {fileID: 2211763335584047665}
+  - component: {fileID: 8845188515183505793}
   m_Layer: 3
   m_Name: Neko
   m_TagString: Player
@@ -109,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8406327759789480898}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.55, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -201,7 +203,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.17594051, y: -0.0034446716}
+  m_Offset: {x: 0.17114532, y: 0.015735745}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -212,7 +214,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9055233, y: 3.793357}
+  m_Size: {x: 1.8767521, y: 3.754996}
   m_EdgeRadius: 0
 --- !u!50 &8021494150904712819
 Rigidbody2D:
@@ -228,8 +230,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 7.22833
   m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 2
+  m_AngularDrag: 0.05
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -261,7 +263,7 @@ MonoBehaviour:
   GravityScale: 5
   colider2d: {fileID: 2155979873554197295}
   atk: {fileID: 7096505069737248528, guid: 8971ac57f21664aeca89b04c2f253109, type: 3}
-  Anims: {fileID: 0}
+  Anims: {fileID: 1944840601330676073}
   DashParticle: {fileID: 1441462519837241027}
   isStop: 0
   dashDuration: 0.15
@@ -278,12 +280,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 1000
-  hpBar: {fileID: 0}
-  healthText: {fileID: 0}
-  diedUI: {fileID: 0}
+  _curHp: 0
   invisibleTime: 0
   DamageText: {fileID: 1487416769882642056, guid: edcc3b94bf3614596a7771fbbd9d73d4, type: 3}
   CameraCanvas: {fileID: 7183246942121871575, guid: 491c4a248d2d34bd8bfe8d383d6774dc, type: 3}
+--- !u!114 &7925413559310152435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406327759789480898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5f412ca1d6643a28f73679ce8be10c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBar: {fileID: 0}
+  healthText: {fileID: 0}
+  diedUI: {fileID: 0}
+  CurHp: 0
 --- !u!95 &1944840601330676073
 Animator:
   serializedVersion: 5
@@ -313,7 +329,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8406327759789480898}
   serializedVersion: 8
-  lengthInSec: 0.05
+  lengthInSec: 5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -1142,7 +1158,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 40
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5102,3 +5118,99 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!82 &8845188515183505793
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406327759789480898}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d7edd458ca9d3480981d17e0b686adaf, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

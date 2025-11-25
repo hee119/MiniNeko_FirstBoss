@@ -28,6 +28,7 @@ public class SlimeKingAttack : MonoBehaviour
     void Start()
     {
         mscooltime = Time.time;
+        Target = GameObject.FindWithTag("Player");
     }
     void Update()
     {
